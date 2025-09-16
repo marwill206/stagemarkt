@@ -1,0 +1,12 @@
+import React from 'react';
+import '../../css/app.css';
+
+export default function Home({ exampleProp, anotherProp }) {
+    return (
+        <div>
+            <h1 id="color">hello user hij werkt</h1>
+            <p id='color'>{exampleProp}</p>
+            <p>Another Prop: {anotherProp}</p>
+        </div>
+    );
+}
