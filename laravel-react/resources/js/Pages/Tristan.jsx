@@ -1,10 +1,9 @@
-import React from 'react';
 import '../../css/app.css';
 
-export default function Home({ exampleProp, anotherProp }) {
+export default function Tristan({ exampleProp, anotherProp }) {
     return (
         <div>
-            <h1 id="color">hello user</h1>
+            <h1 id="color">hello user Tristan</h1>
             <p id='color'>{exampleProp}</p>
             <p>Another Prop: {anotherProp}</p>
         </div>
