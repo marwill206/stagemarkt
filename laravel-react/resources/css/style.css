@@ -1,0 +1,27 @@
+@import url("https://use.typekit.net/cqe4hkd.css");
+@import url('https://fonts.googleapis.com/css2?family=Sarabun&display=swap');
+
+:root {
+    --primary-color: #302B3E;
+    --secondary-color: #FFFFFF;
+    --tetairy-color: #DEDAD8;
+    --companies-color: #3ae3cd;
+    /* --students-color: #f8b61a; */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    /* outline: olive 1px solid; */
+}
+
+h1, h2, h3 {
+  font-family: "roc-grotesk", sans-serif;
+  font-weight: 600; /* Bold */
+}
+
+p, li, span {
+  font-family: "Sarabun", sans-serif;
+  font-weight: 400; /* Regular */
+}
+
