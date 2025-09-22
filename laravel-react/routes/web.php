@@ -7,5 +7,10 @@ Route::get('/', function () {
 });
 
 
+Route::get('/tristan', function () {
+    return inertia('Tristan');
+});
+
+
 
 Route::get('/', [HomeController::class, 'index']);
