@@ -1,12 +1,11 @@
 <?php
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\database\HomeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\StudentSkillController;
-use App\Http\Controllers\SkillController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\TextController;
-
+use App\Http\Controllers\database\CompanyController;
+use App\Http\Controllers\database\StudentSkillController;
+use App\Http\Controllers\database\SkillController;
+use App\Http\Controllers\database\ImageController;
+use App\Http\Controllers\database\TextController;
 
 
 
