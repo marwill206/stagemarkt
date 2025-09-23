@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\database\HomeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\database\CompanyController;
 use App\Http\Controllers\database\StudentSkillController;
