@@ -5,8 +5,10 @@
     --primary-color: #302B3E;
     --secondary-color: #FFFFFF;
     --tetairy-color: #DEDAD8;
-    --companies-color: #3ae3cd;
-    /* --students-color: #f8b61a; */
+    --core-color: #17b9a1;
+    --core-accent-color: #17b9a3;
+    --accent-1-color: #3ae3cd; /* Usually used for companies */
+    --accent-2-color: #f8b61a; /* Usually used for students */
 }
 
 * {
@@ -25,3 +27,109 @@ p, li, span {
   font-weight: 400; /* Regular */
 }
 
+/* MARK: HEADER
+*/
+
+.header {
+    background-color: var(--core-color);
+    color: var(--secondary-color);
+
+    display: flex;
+    flex-wrap: wrap;
+
+    padding: 1rem 2rem;
+
+    font-family: "roc-grotesk", sans-serif;
+    font-weight: 600; /* Bold */
+    /* text-align: center; */
+}
+
+.header-top {
+    display: flex;
+    width: calc(100vw - 4rem);
+
+    margin-bottom: 4rem;
+}
+
+.header .logo {
+    height: 4rem;
+    width: 30rem;
+
+    background-image: url('../images/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.header nav {
+    display: flex;
+    gap: 4rem;
+
+    margin: auto;
+}
+
+.header-bottom {
+    /* background-color: crimson; */
+    width: calc(100vw - 4rem);
+}
+
+.header .search {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    display: flex;
+
+    width: 60vw;
+    height: 8rem;
+
+    margin-inline: auto;
+    padding: 10px;
+
+    border-radius: 20px;
+}
+
+.header .search .search-section {
+    width: 30%;
+}
+
+.header .search label {
+    width: 100%;
+    font-size: 1.5rem;
+    font-family: "Sarabun", sans-serif;
+    font-weight: 600; /* Regular */
+
+    margin-right: 1rem;
+}
+
+.header .search input[type="search"] {
+    border: 1px solid;
+    outline: none;
+    
+    border-radius: 10px;
+
+    width: 100%;
+    height: 2rem;
+
+    padding-inline: .2rem;
+    /* height: 100%;
+
+    font-size: 2rem;
+    font-family: "Sarabun", sans-serif;
+    font-weight: 400; /* Regular */
+
+    /* border-radius: 20px;
+    padding: 0 2rem;  */
+}
+
+.header .search select {
+    border: 1px solid;
+    outline: none;
+    
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+
+    height: 2rem;
+
+    padding-inline: .1rem;
+    
+}
