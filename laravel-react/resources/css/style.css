@@ -120,7 +120,18 @@ p, li, span {
     padding: 0 2rem;  */
 }
 
+#input-location {
+    width: 65%;
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
 .header .search select {
+    width: 35%;
+    /* position: absolute; */
+    /* right: 0; */
+
     border: 1px solid;
     outline: none;
     
@@ -131,5 +142,5 @@ p, li, span {
     height: 2rem;
 
     padding-inline: .1rem;
-    
+
 }
