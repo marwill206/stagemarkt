@@ -17,6 +17,13 @@
     /* outline: olive 1px solid; */
 }
 
+/* html,
+body {
+  min-width: 100%;
+  width: 100vw;
+  max-width: 100%;
+} */
+
 h1, h2, h3 {
   font-family: "roc-grotesk", sans-serif;
   font-weight: 600; /* Bold */
