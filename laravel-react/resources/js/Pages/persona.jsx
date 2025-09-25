@@ -7,6 +7,7 @@ import userIcon from '../../images/user-icon.svg'
 import genderIcon from '../../images/gender-icon.svg'
 import locationIcon from '../../images/location-icon.svg'
 import workIcon from '../../images/work-icon.svg'
+import pathIcon from '../../images/path-icon.svg'
 
 export default function persona() {
     return (
@@ -34,6 +35,10 @@ export default function persona() {
                     <label>
                         <img className="persona-icon" src={workIcon} alt="work icon" />
                         <p className="persona-value">Het Bureau</p>
+                    </label>
+                    <label>
+                        <img className="persona-icon" src={pathIcon} alt="path icon" />
+                        <p className="persona-value">Webdeveloper</p>
                     </label>
                 </div>
                 

@@ -39,7 +39,7 @@ aside {
     width: 50rem;
 }
 
-.persona-info {
+.persona-info-wrapper {
     /* background-color: var(--color-green-400); */
     /* color: var(--core-color); */
 
@@ -49,7 +49,22 @@ aside {
     padding: 2rem 5rem;
 }
 
+.persona-info {
+    width: 20rem;
+    height: 4rem;
+
+    display: flex;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+}
+
+.persona-info h2 {
+    width: 100%;
+}
+
 .persona-info label {
+    width: 10rem;
+
     display: flex;
     align-items: center;    
 
