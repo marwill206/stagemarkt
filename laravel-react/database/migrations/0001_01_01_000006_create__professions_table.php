@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('professions', function (Blueprint $table) {
             $table->id('Profession_ID');
             $table->string('Profession_Name');
-            
+            $table->timestamps(); // Add this line to include created_at and updated_at
         });
     }
 

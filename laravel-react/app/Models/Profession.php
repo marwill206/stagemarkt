@@ -9,7 +9,7 @@ class Profession extends Model
 {
     use HasFactory;
 
-    protected $table = 'Professions'; 
+    protected $table = 'professions'; 
     protected $primaryKey = 'Profession_ID'; 
 
     protected $fillable = [
