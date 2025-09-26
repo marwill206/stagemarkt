@@ -16,6 +16,9 @@ return new class extends Migration
         $table->id('Student_ID'); // primary key
         $table->string('Student_Name');
         $table->string('Student_Email')->unique();
+        $table->string('Portfolio_Link')->nullable();
+        $table->string('About_Text')->nullable();
+        
         $table->string('Address')->nullable();
         $table->integer('age')->nullable();
         $table->enum('gender', ['Male', ' Female',' Other'])->nullable();
