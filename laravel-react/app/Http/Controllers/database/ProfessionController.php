@@ -10,7 +10,7 @@ class ProfessionController extends Controller
 {
     public function index()
     {
-        return Profession::all(); // Return all professions
+        return Profession::all(); 
     }
 
     public function store(Request $request)
@@ -24,7 +24,7 @@ class ProfessionController extends Controller
 
     public function show($id)
     {
-        return Profession::findOrFail($id); // Return a single profession by ID
+        return Profession::findOrFail($id); 
     }
 
     public function update(Request $request, $id)
