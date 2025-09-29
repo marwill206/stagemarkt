@@ -17,20 +17,20 @@ return new class extends Migration
         $table->string('Student_Name');
         $table->string('Student_Email')->unique();
         $table->string('Portfolio_Link')->nullable();
-        $table->string('About_Text')->nullable();
+        $table->text('About_Text')->nullable();
 
         $table->string('Address')->nullable();
-        $table->integer('age')->nullable();
-        $table->enum('gender', ['Male', ' Female',' Other'])->nullable();
-        $table->string('foto')->nullable();
+        $table->integer('Age')->nullable();
+        $table->enum('Gender', ['Male', 'Female', 'Other'])->nullable();
+        $table->string('Foto')->nullable();
         //foreign keys
         $table->unsignedBigInteger('Profession_ID')-> nullable();
         $table->unsignedBigInteger('School_ID')->nullable();
         
         $table->timestamps();
           // FK constraints
-            $table->foreign('Profession_ID')->references('id')->on('professions')->onDelete('set null');
-            $table->foreign('School_ID')->references('id')->on('schools')->onDelete('set null');
+             $table->foreign('Profession_ID')->references('Profession_ID')->on('professions')->onDelete('set null');
+            $table->foreign('School_ID')->references('School_ID')->on('schools')->onDelete('set null');
        }) ;
 
        
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_name');
+        Schema::dropIfExists('students');
     }
 };

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Database;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\Company;
 use Illuminate\Http\Request;
 
@@ -17,11 +16,11 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'company_name' => 'required|string|max:255',
-            'company_email' => 'required|email|unique:company,company_email',
-            'company_address' => 'nullable|string',
-            'kvk' => 'nullable|string',
-            'profession_id' => 'required|exists:profession,id',
+            'Company_Name' => 'required|string|max:255',
+            'Company_Email' => 'required|email|unique:companies,Company_Email', // Fixed table name
+            'Company_Address' => 'nullable|string',
+            'KVK' => 'nullable|string',
+            'Profession_ID' => 'required|exists:professions,Profession_ID', // Fixed field names
             'field' => 'nullable|string',
         ]);
 
@@ -36,8 +35,17 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {
         $company = Company::findOrFail($id);
-        $company->update($request->all());
+        
+        $validated = $request->validate([
+            'Company_Name' => 'required|string|max:255',
+            'Company_Email' => 'required|email|unique:companies,Company_Email,' . $id . ',Company_ID',
+            'Company_Address' => 'nullable|string',
+            'KVK' => 'nullable|string',
+            'Profession_ID' => 'required|exists:professions,Profession_ID',
+            'field' => 'nullable|string',
+        ]);
 
+        $company->update($validated);
         return $company;
     }
 

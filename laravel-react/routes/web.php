@@ -2,36 +2,28 @@
 use App\Http\Controllers\HeaderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\database\CompanyController;
+use App\Http\Controllers\database\StudentController;
+use App\Http\Controllers\database\ProfessionController;
+use App\Http\Controllers\database\SchoolController;
 use App\Http\Controllers\database\StudentSkillController;
 use App\Http\Controllers\database\SkillController;
 use App\Http\Controllers\database\ImageController;
 use App\Http\Controllers\database\TextController;
 
-
-
-
-Route::get('/', function () {
-    return inertia('header');
-});
-
-
+// Main pages
+Route::get('/', [HeaderController::class, 'index']);
 Route::get('/persona', function () {
     return inertia('persona');
 });
 
-
-
-Route::get('/', [HeaderController::class, 'index']);
-
+// API Routes - All consolidated under /api prefix
 Route::prefix('api')->group(function () {
-    Route::apiResource('company', CompanyController::class);
+    Route::apiResource('companies', CompanyController::class);
+    Route::apiResource('students', StudentController::class);
+    Route::apiResource('professions', ProfessionController::class);
+    Route::apiResource('schools', SchoolController::class);
+    Route::apiResource('studentskills', StudentSkillController::class);
+    Route::apiResource('skills', SkillController::class);
+    Route::apiResource('images', ImageController::class);
+    Route::apiResource('texts', TextController::class);
 });
-
-Route::apiResource('studentskill', StudentSkillController::class);
-
-
-Route::apiResource('skill', SkillController::class);
-
-Route::apiResource('image', ImageController::class);
-
-Route::apiResource('text', TextController::class);

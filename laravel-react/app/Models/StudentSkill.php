@@ -20,7 +20,7 @@ class StudentSkill extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class, 'student_id', 'student_id');
+        return $this->belongsTo(Student::class, 'student_id', 'Student_ID'); // Fixed reference
     }
 
     public function skill()

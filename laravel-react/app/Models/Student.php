@@ -10,13 +10,16 @@ class Student extends Model
     use HasFactory;
 
     protected $table = 'students';
+    protected $primaryKey = 'Student_ID';
     protected $fillable = [
-        'Student_name',
+        'Student_Name',
         'Student_Email',
         'Address',
-        'age',
-        'gender',
-        'foto',
+        'Portfolio_Link', // Added missing fields
+        'About_Text',
+        'Age',
+        'Gender',
+        'Foto',
         'Profession_ID',
         'School_ID'
     ];
