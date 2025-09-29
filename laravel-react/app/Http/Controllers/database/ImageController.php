@@ -1,6 +1,7 @@
 <?php
+namespace App\Http\Controllers\Database;
 
-namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
 
 use App\Models\Image;
 use Illuminate\Http\Request;

@@ -9,20 +9,20 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $table = 'company'; // 👈 match your table name
-    protected $primaryKey = 'company_id';
+    protected $table = 'companies'; // 👈 match your table name
+    protected $primaryKey = 'Company_ID';
 
     protected $fillable = [
-        'company_name',
-        'company_email',
-        'company_address',
-        'kvk',
-        'profession_id',
+        'Company_Name',
+        'Company_Email',
+        'Company_Address',
+        'KVK',
+        'Profession_ID',
         'field',
     ];
 
     public function profession()
     {
-        return $this->belongsTo(Profession::class);
+        return $this->belongsTo(Profession::class, 'Profession_ID', 'Profession_ID'); // Fixed reference
     }
 }

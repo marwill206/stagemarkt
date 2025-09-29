@@ -16,8 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('Company_ID');
             $table->unsignedBigInteger('Student_ID');
 
-             $table->foreign('Company_ID')->references('id')->on('companys')->onDelete('set null');
-              $table->foreign('Student_ID')->references('id')->on('students')->onDelete('set null');
+            $table->timestamps();
+
+            // Foreign key constraints
+            $table->foreign('Company_ID')->references('Company_ID')->on('companies')->onDelete('cascade');
+            $table->foreign('Student_ID')->references('Student_ID')->on('students')->onDelete('cascade');
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('_school');
+        Schema::dropIfExists('matches');
     }
 };
