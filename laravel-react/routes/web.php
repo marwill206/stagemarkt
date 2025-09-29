@@ -1,6 +1,5 @@
 <?php
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HeaderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentSkillController;
@@ -14,17 +13,17 @@ use App\Http\Controllers\TextController;
 
 
 Route::get('/', function () {
-    return inertia('Home');
+    return inertia('header');
 });
 
 
-Route::get('/tristan', function () {
-    return inertia('Tristan');
+Route::get('/persona', function () {
+    return inertia('persona');
 });
 
 
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HeaderController::class, 'index']);
 
 Route::prefix('api')->group(function () {
     Route::apiResource('company', CompanyController::class);
