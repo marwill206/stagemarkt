@@ -6,7 +6,7 @@ use App\Http\Controllers\StudentSkillController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\TextController;
-
+use App\Http\Controllers\AuthController;
 
 
 
