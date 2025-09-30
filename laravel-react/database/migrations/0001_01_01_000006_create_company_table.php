@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('KVK')->nullable();
             
             // Foreign Key
-            $table->unsignedBigInteger('Profession_ID');
+            $table->unsignedBigInteger('Profession_ID')->nullable();
             $table->foreign('Profession_ID')->references('Profession_ID')->on('professions')->onDelete('cascade');
             
             $table->string('field')->nullable();
