@@ -25,21 +25,33 @@ export default function persona() {
                         <p className="persona-value">21</p>
                     </label>
                     <label>
-                        <img className="persona-icon" src={genderIcon} alt="Gender icon" />
-                        <p className="persona-value">Man</p>
-                    </label>
-                    <label>
-                        <img className="persona-icon" src={locationIcon} alt="Location icon" />
-                        <p className="persona-value">Terwijde</p>
-                    </label>
-                    <label>
                         <img className="persona-icon" src={workIcon} alt="work icon" />
                         <p className="persona-value">Het Bureau</p>
+                    </label>
+                    <label>
+                        <img className="persona-icon" src={genderIcon} alt="Gender icon" />
+                        <p className="persona-value">Man</p>
                     </label>
                     <label>
                         <img className="persona-icon" src={pathIcon} alt="path icon" />
                         <p className="persona-value">Webdeveloper</p>
                     </label>
+                    <label>
+                        <img className="persona-icon" src={locationIcon} alt="Location icon" />
+                        <p className="persona-value">Terwijde</p>
+                    </label>
+                </div>
+                <div className="persona-traits">
+                    <h2>Eigenschappen</h2>
+                    <p>Kalm</p>
+                    <p>Sociaal</p>
+                    <p>Behulpzaam</p>
+                    <p>Nieuwsgierig</p>
+                    <p>Leergierig</p>
+                </div>
+                <div className="persona-communication">
+                    <h2>Communicatie</h2>
+                    <label></label>
                 </div>
                 
             </section>

@@ -47,11 +47,13 @@ aside {
     height: 100vh;
 
     padding: 2rem 5rem;
+    /* display: flex;
+    flex-direction: column; */
 }
 
 .persona-info {
     width: 20rem;
-    height: 4rem;
+    /* height: 4rem; */
 
     display: flex;
     /* flex-direction: column; */
@@ -60,6 +62,7 @@ aside {
 
 .persona-info h2 {
     width: 100%;
+    margin-bottom: 2rem;
 }
 
 .persona-info label {
@@ -77,4 +80,32 @@ aside {
     width: 1.5rem;
 
     margin-right: 1rem;
+}
+
+.persona-traits {
+    width: 20rem;
+    /* height: 4rem; */
+
+    display: flex;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+}
+
+.persona-traits h2 {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.persona-traits p {
+    background-color: var(--core-color);
+    color: var(--secondary-color);
+
+    width: auto;
+    
+    margin-right: .4rem;
+    margin-bottom: .4rem;
+
+    padding: .2rem .5rem;
+
+    border-radius: .5rem;
 }
