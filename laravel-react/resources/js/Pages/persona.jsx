@@ -41,8 +41,8 @@ export default function persona() {
                         <p className="persona-value">Terwijde</p>
                     </label>
                 </div>
-                <div className="persona-traits">
-                    <h2>Eigenschappen</h2>
+                <div className="persona-skills">
+                    <h2>Skills</h2>
                     <p>Kalm</p>
                     <p>Sociaal</p>
                     <p>Behulpzaam</p>
@@ -51,7 +51,9 @@ export default function persona() {
                 </div>
                 <div className="persona-communication">
                     <h2>Communicatie</h2>
-                    <label></label>
+                    <label><p>Email:</p><a href="mailto:JohnDoe@gmail.com">JohnDoe@gmail.com</a></label>
+                    <label><p>Phone:</p><a href="tel:0612345678">06-12345678</a></label>
+                    <label><p>Portfolio:</p><a href="u2330838.gluwebsite.nl">u2330838.gluwebsite.nl</a></label>
                 </div>
                 
             </section>
