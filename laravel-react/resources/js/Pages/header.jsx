@@ -1,6 +1,7 @@
-import React from "react";
-import "../../css/app.css";
-import "../../css/style.css";
+import React from 'react';
+import '../../css/app.css';
+import '../../css/style.css';
+import dataCities from '../../json/cities.json'; // Import the JSON file
 
 export default function header() {
     return (
@@ -26,7 +27,12 @@ export default function header() {
                         </div>
                         <div className="search-section">
                             <label htmlFor="locatie">Plaats of postcode</label>
-                            <input type="search" className="search-input" id="input-location" name="locatie"/>
+                            <input type="search" className="search-input" id="input-location" name="locatie" list="locatie"/>
+                            <datalist id="locatie">
+                                {Array.isArray(dataCities.value) && dataCities.value.map(city => (
+                                    <option key={city.Key} value={city.Title}>{city.Title}</option>
+                                ))}
+                            </datalist>
                             <select name="locatie-range" className="search-input">
                                 <option value="0">+0km</option>
                                 <option value="5">+5km</option>
