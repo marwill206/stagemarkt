@@ -22,24 +22,12 @@ export default function header() {
                             <label htmlFor="opleiding">
                                 Opleiding, bedrijfsnaam of trefwoord
                             </label>
-                            <input
-                                type="search"
-                                className="search-input"
-                                name="opleiding"
-                            />
+                            <input type="search" className="search-input" name="opleiding"/>
                         </div>
                         <div className="search-section">
                             <label htmlFor="locatie">Plaats of postcode</label>
-                            <input
-                                type="search"
-                                className="search-input"
-                                id="input-location"
-                                name="locatie"
-                            />
-                            <select
-                                name="locatie-range"
-                                className="search-input"
-                            >
+                            <input type="search" className="search-input" id="input-location" name="locatie"/>
+                            <select name="locatie-range" className="search-input">
                                 <option value="0">+0km</option>
                                 <option value="5">+5km</option>
                                 <option value="10">+10km</option>
