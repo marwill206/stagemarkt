@@ -113,6 +113,8 @@ span {
 .header .search .search-bottom .search-section:nth-child(2) {
     /* width: 24rem; */
     display: flex;
+
+    gap: 1rem;
 }
 
 /* .header .search .search-section label {
