@@ -21,17 +21,22 @@ class StudentCompanySeeder extends Seeder
             return;
         }
 
-        // Create companies
-        Company::factory(15)->create()->each(function ($company) use ($professions) {
-            $company->Profession_ID = $professions->random()->Profession_ID;
-            $company->save();
-        });
+        // Create companies with profession_id assigned during creation
+        for ($i = 0; $i < 15; $i++) {
+            Company::factory()->create([
+                'Profession_ID' => $professions->random()->Profession_ID
+            ]);
+        }
 
-        // Create students
-        Student::factory(50)->create()->each(function ($student) use ($professions, $schools) {
-            $student->Profession_ID = $professions->random()->Profession_ID;
-            $student->School_ID = $schools->random()->School_ID;
-            $student->save();
-        });
+        // Create students with profession_id and school_id assigned during creation
+        for ($i = 0; $i < 50; $i++) {
+            Student::factory()->create([
+                'Profession_ID' => $professions->random()->Profession_ID,
+                'School_ID' => $schools->random()->School_ID
+            ]);
+        }
+
+        $this->command->info('Created ' . Company::count() . ' companies');
+        $this->command->info('Created ' . Student::count() . ' students');
     }
 }

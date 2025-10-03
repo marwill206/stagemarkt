@@ -7,6 +7,7 @@ import userIcon from '../../images/user-icon.svg'
 import genderIcon from '../../images/gender-icon.svg'
 import locationIcon from '../../images/location-icon.svg'
 import workIcon from '../../images/work-icon.svg'
+import pathIcon from '../../images/path-icon.svg'
 
 export default function persona() {
     return (
@@ -24,17 +25,35 @@ export default function persona() {
                         <p className="persona-value">21</p>
                     </label>
                     <label>
+                        <img className="persona-icon" src={workIcon} alt="work icon" />
+                        <p className="persona-value">Het Bureau</p>
+                    </label>
+                    <label>
                         <img className="persona-icon" src={genderIcon} alt="Gender icon" />
                         <p className="persona-value">Man</p>
+                    </label>
+                    <label>
+                        <img className="persona-icon" src={pathIcon} alt="path icon" />
+                        <p className="persona-value">Webdeveloper</p>
                     </label>
                     <label>
                         <img className="persona-icon" src={locationIcon} alt="Location icon" />
                         <p className="persona-value">Terwijde</p>
                     </label>
-                    <label>
-                        <img className="persona-icon" src={workIcon} alt="work icon" />
-                        <p className="persona-value">Het Bureau</p>
-                    </label>
+                </div>
+                <div className="persona-skills">
+                    <h2>Skills</h2>
+                    <p>Kalm</p>
+                    <p>Sociaal</p>
+                    <p>Behulpzaam</p>
+                    <p>Nieuwsgierig</p>
+                    <p>Leergierig</p>
+                </div>
+                <div className="persona-communication">
+                    <h2>Communicatie</h2>
+                    <label><p>Email:</p><a href="mailto:JohnDoe@gmail.com">JohnDoe@gmail.com</a></label>
+                    <label><p>Phone:</p><a href="tel:0612345678">06-12345678</a></label>
+                    <label><p>Portfolio:</p><a href="u2330838.gluwebsite.nl">u2330838.gluwebsite.nl</a></label>
                 </div>
                 
             </section>

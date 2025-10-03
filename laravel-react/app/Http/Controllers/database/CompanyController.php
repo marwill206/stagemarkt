@@ -17,10 +17,10 @@ class CompanyController extends Controller
     {
         $validated = $request->validate([
             'Company_Name' => 'required|string|max:255',
-            'Company_Email' => 'required|email|unique:companies,Company_Email', // Fixed table name
+            'Company_Email' => 'required|email|unique:companies,Company_Email',
             'Company_Address' => 'nullable|string',
             'KVK' => 'nullable|string',
-            'Profession_ID' => 'required|exists:professions,Profession_ID', // Fixed field names
+            'Profession_ID' => 'nullable|exists:professions,Profession_ID', // Made nullable
             'field' => 'nullable|string',
         ]);
 
@@ -41,7 +41,7 @@ class CompanyController extends Controller
             'Company_Email' => 'required|email|unique:companies,Company_Email,' . $id . ',Company_ID',
             'Company_Address' => 'nullable|string',
             'KVK' => 'nullable|string',
-            'Profession_ID' => 'required|exists:professions,Profession_ID',
+            'Profession_ID' => 'nullable|exists:professions,Profession_ID', // Made nullable
             'field' => 'nullable|string',
         ]);
 
