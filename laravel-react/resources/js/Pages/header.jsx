@@ -46,13 +46,23 @@ export default function header() {
                         </div>
                     </div>
                     <div className="search-bottom">
-                        <label class="switch">
+                        <div className="search-section">
+                            <h2>Zoeken naar</h2>
+                            <p>Stages</p>
+                            <label class="switch">
                             <input type="checkbox" />
                             <span class="slider round"></span>
-                        </label>
+                            </label>
+                            <p>Leerbedrijven</p>
+                        </div>
+                        <div className="search-section">
+                            <h2>Land</h2>
+                            <select>
+                                <option value="nl">Nederland</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div></div>
             </div>
         </header>
     );
