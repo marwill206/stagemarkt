@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Database;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Text;
 use Illuminate\Http\Request;
