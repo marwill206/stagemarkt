@@ -1,0 +1,291 @@
+.main-match {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: var(--secondary-color);
+}
+
+.match-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.match-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.match-header h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.match-header p {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.user-type-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.toggle-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--core-color);
+    background-color: var(--secondary-color);
+    color: var(--core-color);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.toggle-btn.active {
+    background-color: var(--core-color);
+    color: var(--secondary-color);
+}
+
+.toggle-btn:hover {
+    background-color: var(--core-color);
+    color: var(--secondary-color);
+}
+
+.match-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tab-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--tetairy-color);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background-color: var(--core-color);
+    color: var(--secondary-color);
+    border-color: var(--core-color);
+}
+
+.match-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background-color: var(--tetairy-color);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat-card h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+.match-content {
+    margin-top: 2rem;
+}
+
+.match-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.match-card {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--tetairy-color);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.match-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.match-card.company {
+    border-left: 4px solid var(--accent-1-color);
+}
+
+.match-card.student {
+    border-left: 4px solid var(--accent-2-color);
+}
+
+.match-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.match-card p {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    line-height: 1.4;
+}
+
+.match-card .label {
+    font-weight: 600;
+    color: var(--core-color);
+}
+
+.match-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-like {
+    padding: 0.5rem 1rem;
+    background-color: var(--accent-2-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-like:hover {
+    background-color: #e6a419;
+    transform: scale(1.05);
+}
+
+.btn-like.liked {
+    background-color: var(--core-color);
+}
+
+.btn-unlike {
+    padding: 0.5rem 1rem;
+    background-color: #dc3545;
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-unlike:hover {
+    background-color: #c82333;
+}
+
+.btn-contact {
+    padding: 0.5rem 1rem;
+    background-color: var(--core-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-contact:hover {
+    background-color: var(--core-accent-color);
+}
+
+.btn-secondary {
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: var(--core-color);
+    border: 2px solid var(--core-color);
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-secondary:hover {
+    background-color: var(--core-color);
+    color: var(--secondary-color);
+}
+
+.like-icon {
+    font-size: 1.2rem;
+}
+
+.no-matches {
+    text-align: center;
+    padding: 3rem;
+    background-color: var(--tetairy-color);
+    border-radius: 15px;
+}
+
+.no-matches p {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.existing-matches {
+    margin-top: 3rem;
+    padding: 2rem;
+    background-color: var(--tetairy-color);
+    border-radius: 15px;
+}
+
+.existing-matches h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .match-container {
+        padding: 1rem;
+    }
+    
+    .match-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .user-type-toggle {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .match-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+}

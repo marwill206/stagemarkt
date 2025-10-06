@@ -1,5 +1,7 @@
 <?php
+
 use App\Http\Controllers\HeaderController;
+use App\Http\Controllers\MatchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\database\CompanyController;
 use App\Http\Controllers\database\StudentController;
@@ -16,7 +18,12 @@ Route::get('/persona', function () {
     return inertia('persona');
 });
 
-// API Routes - All consolidated under /api prefix
+// Match routes
+Route::get('/match', [MatchController::class, 'index'])->name('match.index');
+Route::post('/match/create', [MatchController::class, 'createMatch'])->name('match.create');
+Route::delete('/match/remove', [MatchController::class, 'removeMatch'])->name('match.remove');
+
+// API Routes
 Route::prefix('api')->group(function () {
     Route::apiResource('companies', CompanyController::class);
     Route::apiResource('students', StudentController::class);
