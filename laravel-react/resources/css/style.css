@@ -80,11 +80,13 @@ span {
 }
 
 .header-bottom {
-    /* background-color: crimson; */
-    width: calc(100vw - 4rem);
+    background-color: var(--core-color);
+    /* padding: 1rem 2rem; */
+    padding-bottom: 2rem;
+    width: calc(100vw - 0rem);
 }
 
-.header .search {
+.header-bottom .search {
     background-color: var(--secondary-color);
     color: var(--primary-color);
     display: flex;
@@ -98,31 +100,31 @@ span {
     border-radius: 20px;
 }
 
-.header .search .search-section:nth-child(1) {
+.header-bottom .search .search-section:nth-child(1) {
     width: 28rem;
 }
-.header .search .search-section:nth-child(2) {
+.header-bottom .search .search-section:nth-child(2) {
     width: 24rem;
 }
-.header .search .search-bottom .search-section:nth-child(1) {
+.header-bottom .search .search-bottom .search-section:nth-child(1) {
     /* width: 24rem; */
     display: flex;
 
     gap: 1rem;
 }
-.header .search .search-bottom .search-section:nth-child(2) {
+.header-bottom .search .search-bottom .search-section:nth-child(2) {
     /* width: 24rem; */
     display: flex;
 
     gap: 1rem;
 }
 
-/* .header .search .search-section label {
+/* .header-bottom .search .search-section label {
     width: 100%;
     background-color: lightgreen;
 } */
 
-.header .search label:not(.switch){
+.header-bottom .search label:not(.switch){
     width: 100%;
     font-size: 1rem;
     font-family: "Sarabun", sans-serif;
@@ -141,7 +143,7 @@ span {
     margin-top: 0.5rem;
 }
 
-.header .search input[type="search"] {
+.header-bottom .search input[type="search"] {
     border: 1px solid;
     outline: none;
 
@@ -168,7 +170,7 @@ span {
     border-bottom-right-radius: 0;
 }
 
-.header .search .search-top select {
+.header-bottom .search .search-top select {
     width: 5rem;
     height: 2.5rem;
     /* padding-block: .2rem; */
@@ -183,7 +185,7 @@ span {
     padding-inline: 0.1rem;
 }
 
-.header .search .search-bottom select {
+.header-bottom .search .search-bottom select {
     width: 16rem;
     height: 1.5rem;
     /* padding-block: .2rem; */
