@@ -1,5 +1,4 @@
 import React from 'react';
-import dataCities from '../../json/cities.json'; // Import the JSON file
 
 export default function Header() {
     return (

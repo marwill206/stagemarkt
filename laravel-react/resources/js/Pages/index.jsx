@@ -1,6 +1,8 @@
 import React from 'react';
 import dataCities from '../../json/cities.json'; // Import the JSON file
 import Layout from './Layout';
+import arrowIcon from '../../images/arrow-icon.svg'
+
 
 export default function Index() {
     return (
@@ -54,6 +56,27 @@ export default function Index() {
                     </div>
                 </div>
             </div>
+            <main className="homePage">
+                <div className="company-card">
+                    <div className="card-img">
+                        <img src="https://placehold.co/32x18" alt="Company Logo"/>
+                    </div>
+                    <div className="card-text">
+                        <p className="card-text-name">Het Bureau</p>
+                        <h2 className="card-text-function">Webdev</h2>
+                        <p className="card-text-location">KWL 7</p>
+                        <hr className="card-text-line"/>
+                        <button className="card-button">Bekijk vacature <img src={arrowIcon}/></button>
+                    </div>
+                    
+                </div>
+                <div className="company-card">
+
+                </div>
+                <div className="company-card">
+
+                </div>
+            </main>
         </div>
     );
 }
