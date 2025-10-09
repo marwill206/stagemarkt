@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\HeaderController;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\database\CompanyController;
 use App\Http\Controllers\database\StudentController;
@@ -31,12 +32,13 @@ Route::prefix('api')->group(function () {
 });
 
 Route::get('/', function() {
-    return view('welcome');
+    return view('app');
 })->name('home');
 
 
-route::get('/login',[AuthManager::class, 'login'])->name('login');
-route::post('/login',[AuthManager::class, 'loginPost'])->name('login.post');
+Route::get('/login',[AuthManager::class, 'login'])->name('login');
+Route::post('/login',[AuthManager::class, 'loginPost'])->name('login.post');
 
-route::get('/register', [AuthManager::class, 'register'])->name('register');
-route::post('/register',[AuthManager::class, 'registerPost'])->name('register.post');
+Route::get('/register', [AuthManager::class, 'register'])->name('register');
+Route::post('/register',[AuthManager::class, 'registerPost'])->name('register.post');
+Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
