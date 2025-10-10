@@ -84,3 +84,32 @@ hr {
     width: 1rem;
     height: 1rem;
 }
+
+
+/* Responsive cards / home page */
+@media (max-width: 900px) {
+  .company-card {
+    width: 48%;
+  }
+  .homePage {
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .company-card {
+    width: 100%;
+  }
+
+  .card-img img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .card-text {
+    padding: 0.75rem;
+  }
+}
+/* ...existing code... */
