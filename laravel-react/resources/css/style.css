@@ -107,10 +107,10 @@ span {
 }
 
 .header-bottom .search .search-section:nth-child(1) {
-    width: 28rem;
+    width: min(30vw, 28rem);
 }
 .header-bottom .search .search-section:nth-child(2) {
-    width: 24rem;
+    width: min(30vw, 24rem);
 }
 .header-bottom .search .search-bottom .search-section:nth-child(1) {
     /* width: 24rem; */
@@ -155,7 +155,7 @@ span {
 
     border-radius: 10px;
 
-    width: 26rem;
+    width: min(18vw, 26rem);
     height: 2.5rem;
 
     padding-inline: 0.2rem;
@@ -170,7 +170,7 @@ span {
 }
 
 #input-location {
-    width: 16rem;
+    width: min(20vw, 16rem);
     border-right: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -266,4 +266,12 @@ span {
     border-top: 1px solid var(--secondary-color);
     align-self: start;
     justify-items: end;
+}
+
+@media (max-width: 768px) {
+    .header-top {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
 }
