@@ -14,25 +14,46 @@ class MatchController extends Controller
 {
     public function index(Request $request)
     {
+        // Get current authenticated user or use demo user
         $user = Auth::user();
-
+        
         if (!$user) {
-            $user = User::first();
+            // For demo purposes, create a demo user if none exists
+            $user = User::with(['student.profession', 'student.school', 'company.profession'])->first();
+            
+            if (!$user) {
+                // Create a demo user linked to first student
+                $firstStudent = Student::first();
+                if ($firstStudent) {
+                    $user = User::create([
+                        'name' => $firstStudent->Student_Name,
+                        'email' => $firstStudent->Student_Email,
+                        'password' => bcrypt('password'),
+                        'user_type' => 'student',
+                        'role' => 'student',
+                        'student_id' => $firstStudent->Student_ID,
+                        'company_id' => null,
+                    ]);
+                } else {
+                    return redirect()->route('home')->with('error', 'No data available. Please run seeders first.');
+                }
+            }
         }
 
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'Please log in to view matches');
-        }
-
-        $userType = $user->user_type;
+        $userType = $user->getUserType();
         $userId = $user->getProfileId();
 
-        if ($userType === "student") {
+        if (!$userId) {
+            return redirect()->route('home')->with('error', 'User profile not properly set up.');
+        }
+
+        if ($userType === 'student') {
+            // Student sees companies they haven't matched with yet
             $matches = Company::with(['profession'])
-                ->whereNotIn('Company_ID', function ($query) use ($userId) {
+                ->whereNotIn('Company_ID', function($query) use ($userId) {
                     $query->select('Company_ID')
-                        ->from('matches')
-                        ->where('Student_ID', $userId);
+                          ->from('matches')
+                          ->where('Student_ID', $userId);
                 })
                 ->get()
                 ->map(function ($company) {
@@ -47,8 +68,9 @@ class MatchController extends Controller
                     ];
                 });
 
+            // Get existing matches for this student
             $existingMatches = DB::table('matches')
-                ->where('student_ID', $userId)
+                ->where('Student_ID', $userId)
                 ->join('companies', 'matches.Company_ID', '=', 'companies.Company_ID')
                 ->leftJoin('professions', 'companies.Profession_ID', '=', 'professions.Profession_ID')
                 ->select(
@@ -58,14 +80,17 @@ class MatchController extends Controller
                 )
                 ->orderBy('match_date', 'desc')
                 ->get();
+                
             $matchTitle = 'Companies Looking for Students';
-            $matchSubtitle = 'Find your perfect internship';
+            $matchSubtitle = 'Find your perfect internship or job opportunity';
         } else {
-            $matches = Student::with(['profession', 'school'])->whereNotIn('Student_ID', function ($query) use ($userId) {
-                $query->select('Student_ID')
-                    ->from('matches')
-                    ->where('Company_ID', $userId);
-            })
+            // Company sees students they haven't matched with yet
+            $matches = Student::with(['profession', 'school'])
+                ->whereNotIn('Student_ID', function($query) use ($userId) {
+                    $query->select('Student_ID')
+                          ->from('matches')
+                          ->where('Company_ID', $userId);
+                })
                 ->get()
                 ->map(function ($student) {
                     return [
@@ -81,6 +106,8 @@ class MatchController extends Controller
                         'type' => 'student'
                     ];
                 });
+
+            // Get existing matches for this company
             $existingMatches = DB::table('matches')
                 ->where('Company_ID', $userId)
                 ->join('students', 'matches.Student_ID', '=', 'students.Student_ID')
@@ -94,7 +121,7 @@ class MatchController extends Controller
                 )
                 ->orderBy('match_date', 'desc')
                 ->get();
-
+            
             $matchTitle = 'Students Looking for Opportunities';
             $matchSubtitle = 'Find talented students for your company';
         }
@@ -107,6 +134,7 @@ class MatchController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'user_type' => $userType,
                 'profile_id' => $userId,
                 'profile' => $user->getProfile()
             ],
@@ -119,23 +147,31 @@ class MatchController extends Controller
     public function createMatch(Request $request)
     {
         $user = Auth::user() ?? User::first();
-
+        
         if (!$user) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'User not found'], 401);
         }
 
-        $validated = $request->validate(['target_id' => 'required|integer']);
+        $validated = $request->validate([
+            'target_id' => 'required|integer'
+        ]);
 
-        $userType = $user->user_type;
+        $userType = $user->getUserType();
         $userId = $user->getProfileId();
 
+        if (!$userId) {
+            return response()->json(['message' => 'User profile not properly set up'], 400);
+        }
+
+        // Check if match already exists
         $existingMatch = DB::table('matches')
-            ->when($userType === 'student', function ($query) use ($userId, $validated) {
-                return $query->where('Student_ID', $userId)->where('Company_ID', $validated['target_id']);
+            ->when($userType === 'student', function($query) use ($userId, $validated) {
+                return $query->where('Student_ID', $userId)
+                           ->where('Company_ID', $validated['target_id']);
             })
-            ->when($userType === 'company', function ($query) use ($userId, $validated) {
+            ->when($userType === 'company', function($query) use ($userId, $validated) {
                 return $query->where('Company_ID', $userId)
-                    ->where('Student_ID', $validated['target_id']);
+                           ->where('Student_ID', $validated['target_id']);
             })
             ->first();
 
@@ -143,55 +179,68 @@ class MatchController extends Controller
             return response()->json(['message' => 'Match already exists'], 409);
         }
 
-        if ($userType === 'student') {
-            DB::table('matches')->insert([
-                'Student_ID' => $userId,
-                'Company_ID' => $validated['target_id'],
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
-        } else {
-            DB::table('matches')->insert([
-                'Company_ID' => $userId,
-                'Student_ID' => $validated['target_id'],
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
+        // Create new match
+        try {
+            if ($userType === 'student') {
+                DB::table('matches')->insert([
+                    'Student_ID' => $userId,
+                    'Company_ID' => $validated['target_id'],
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+            } else {
+                DB::table('matches')->insert([
+                    'Company_ID' => $userId,
+                    'Student_ID' => $validated['target_id'],
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+            }
+            
+            return response()->json(['message' => 'Match created successfully!'], 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to create match: ' . $e->getMessage()], 500);
         }
-        return response()->json(['message' => 'Match created successfully!'], 201);
     }
 
     public function removeMatch(Request $request)
     {
         $user = Auth::user() ?? User::first();
-
-
+        
         if (!$user) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'User not found'], 401);
         }
 
         $validated = $request->validate([
             'target_id' => 'required|integer'
         ]);
 
-        $userType = $user->user_type;
+        $userType = $user->getUserType();
         $userId = $user->getProfileId();
 
-        $deleted = DB::table('matches')
-            ->when($userType === 'student', function ($query) use ($userId, $validated) {
-                return $query->where('Student_ID', $userId)
-                    ->where('Company_ID', $validated['target_id']);
-            })
-            ->when($userType === 'company', function ($query) use ($userId, $validated) {
-                return $query->where('Company_ID', $userId)
-                    ->where('Student_ID', $validated['target_id']);
-            })
-            ->delete();
-
-        if ($deleted) {
-            return response()->json(['message' => 'Match removed successfully'], 200);
+        if (!$userId) {
+            return response()->json(['message' => 'User profile not properly set up'], 400);
         }
 
-        return response()->json(['message' => 'Match not found'], 404);
+        try {
+            $deleted = DB::table('matches')
+                ->when($userType === 'student', function($query) use ($userId, $validated) {
+                    return $query->where('Student_ID', $userId)
+                               ->where('Company_ID', $validated['target_id']);
+                })
+                ->when($userType === 'company', function($query) use ($userId, $validated) {
+                    return $query->where('Company_ID', $userId)
+                               ->where('Student_ID', $validated['target_id']);
+                })
+                ->delete();
+
+            if ($deleted) {
+                return response()->json(['message' => 'Match removed successfully'], 200);
+            }
+
+            return response()->json(['message' => 'Match not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to remove match: ' . $e->getMessage()], 500);
+        }
     }
 }

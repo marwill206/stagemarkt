@@ -2,24 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-
 
     protected $table = "users";
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -27,24 +19,14 @@ class User extends Authenticatable
         'user_type',
         'student_id',
         'company_id',
-        'role',
+        'role', // Keep this for backward compatibility
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -67,21 +49,39 @@ class User extends Authenticatable
     // Helper methods
     public function isStudent()
     {
-        return $this->user_type === 'student';
+        // Check both fields for compatibility
+        return $this->user_type === 'student' || $this->role === 'student';
     }
 
     public function isCompany()
     {
-        return $this->user_type === 'company';
+        // Check both fields for compatibility
+        return $this->user_type === 'company' || $this->role === 'company';
     }
 
     public function getProfileId()
     {
-        return $this->isStudent() ? $this->student_id : $this->company_id;
+        if ($this->isStudent()) {
+            return $this->student_id;
+        } elseif ($this->isCompany()) {
+            return $this->company_id;
+        }
+        return null;
     }
 
     public function getProfile()
     {
-        return $this->isStudent() ? $this->student : $this->company;
+        if ($this->isStudent()) {
+            return $this->student;
+        } elseif ($this->isCompany()) {
+            return $this->company;
+        }
+        return null;
+    }
+
+    public function getUserType()
+    {
+        // Return user_type if it exists, otherwise fall back to role
+        return $this->user_type ?? $this->role;
     }
 }
