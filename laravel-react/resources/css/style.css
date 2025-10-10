@@ -222,3 +222,48 @@ span {
 
     cursor: pointer;
 }
+
+/* MARK: FOOTER
+*/
+
+.footer {
+    background-color: var(--core-color);
+    color: var(--secondary-color);
+
+    /* width: calc(100vw - 2rem); */
+    height: 20rem;
+    clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 0% 20%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 8rem 0rem 0rem 0rem;
+
+    font-family: "roc-grotesk", sans-serif;
+    font-weight: 600; /* Bold */
+    /* text-align: center; */
+}
+
+.footer .logo {
+    /* padding: inherit 2rem 0rem 2rem; */
+    font-size: 4rem;
+}
+
+.footer nav {
+    display: flex;
+    gap: 4rem;
+
+    /* margin: 2rem auto; */
+    margin-bottom: 2rem
+}
+
+.footer .copyright {
+    width: 100%;
+
+    padding-top: 1rem;
+
+    border-top: 1px solid var(--secondary-color);
+    align-self: start;
+    justify-items: end;
+}

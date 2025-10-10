@@ -4,6 +4,7 @@ import '../../css/app.css';
 import '../../css/style.css';
 import '../../css/index.css';
 import Header from './header';
+import Footer from './footer';
 
 export default function Layout({ children }) {
   return (
@@ -12,6 +13,7 @@ export default function Layout({ children }) {
       <main>
         {children}
       </main>
+      <Footer />
     </div>
   );
 }
