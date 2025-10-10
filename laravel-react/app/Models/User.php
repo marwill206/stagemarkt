@@ -24,6 +24,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_type',
+        'student_id',
+        'company_id',
     ];
 
     /**
@@ -47,5 +50,37 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Relationships
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'student_id', 'Student_ID');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id', 'Company_ID');
+    }
+
+    // Helper methods
+    public function isStudent()
+    {
+        return $this->user_type === 'student';
+    }
+
+    public function isCompany()
+    {
+        return $this->user_type === 'company';
+    }
+
+    public function getProfileId()
+    {
+        return $this->isStudent() ? $this->student_id : $this->company_id;
+    }
+
+    public function getProfile()
+    {
+        return $this->isStudent() ? $this->student : $this->company;
     }
 }
