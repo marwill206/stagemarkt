@@ -13,6 +13,7 @@ use App\Http\Controllers\database\ImageController;
 use App\Http\Controllers\database\TextController;
 
 
+
 // Main pages
 Route::get('/', [HeaderController::class, 'index']);
 Route::get('/persona', function () {
@@ -35,6 +36,7 @@ Route::get('/', function() {
     return view('app');
 })->name('home');
 
+App\Providers\AuthServiceProvider::class;
 
 Route::get('/login',[AuthManager::class, 'login'])->name('login');
 Route::post('/login',[AuthManager::class, 'loginPost'])->name('login.post');
