@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+             $table->enum('role', ['student', 'company']);
             
             // Add user type and foreign keys
             $table->enum('user_type', ['student', 'company']);
