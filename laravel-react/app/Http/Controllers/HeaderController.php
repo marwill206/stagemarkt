@@ -7,7 +7,7 @@ class HeaderController extends Controller
 {
     public function index()
     {
-        return Inertia::render('header', [
+        return Inertia::render('index', [
             'exampleProp' => 'This is a test message from Laravel!',
             'anotherProp' => 12345,
         ]);
