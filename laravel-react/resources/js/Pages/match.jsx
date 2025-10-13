@@ -94,18 +94,18 @@ export default function Match({
             
             {match.type === 'company' ? (
                 <div className="company-details">
-                    <p><span className="label">📧 Email:</span> {match.email || match.Company_Email}</p>
-                    <p><span className="label">📍 Address:</span> {match.address || match.Company_Address || 'Not specified'}</p>
-                    <p><span className="label">💼 Profession:</span> {match.profession || match.Profession_Name}</p>
-                    <p><span className="label">🏢 Field:</span> {match.field || 'Various'}</p>
+                    <p><span className="label">Email:</span> {match.email || match.Company_Email}</p>
+                    <p><span className="label">Address:</span> {match.address || match.Company_Address || 'Not specified'}</p>
+                    <p><span className="label">Profession:</span> {match.profession || match.Profession_Name}</p>
+                    <p><span className="label">Field:</span> {match.field || 'Various'}</p>
                 </div>
             ) : (
                 <div className="student-details">
-                    <p><span className="label">📧 Email:</span> {match.email || match.Student_Email}</p>
-                    <p><span className="label">🎂 Age:</span> {match.age || match.Age || 'Not specified'}</p>
-                    <p><span className="label">💼 Profession:</span> {match.profession || match.Profession_Name}</p>
-                    <p><span className="label">🏫 School:</span> {match.school || match.School_Name}</p>
-                    <p><span className="label">📍 Location:</span> {match.address || match.Address || 'Not specified'}</p>
+                    <p><span className="label">Email:</span> {match.email || match.Student_Email}</p>
+                    <p><span className="label">Age:</span> {match.age || match.Age || 'Not specified'}</p>
+                    <p><span className="label">Profession:</span> {match.profession || match.Profession_Name}</p>
+                    <p><span className="label">School:</span> {match.school || match.School_Name}</p>
+                    <p><span className="label">Location:</span> {match.address || match.Address || 'Not specified'}</p>
                     {(match.about || match.About_Text) && (
                         <p><span className="label">ℹ️ About:</span> {(match.about || match.About_Text).substring(0, 100)}...</p>
                     )}
@@ -119,7 +119,7 @@ export default function Match({
                             className="btn-like"
                             onClick={() => handleLike(match.id)}
                         >
-                            <span className="like-icon">💖</span>
+                            <span className="like-icon"></span>
                             Like
                         </button>
                         <button 
@@ -135,7 +135,7 @@ export default function Match({
                             className="btn-contact"
                             onClick={() => handleContact(match)}
                         >
-                            💬 Contact
+                            Contact
                         </button>
                         <button 
                             className="btn-secondary"

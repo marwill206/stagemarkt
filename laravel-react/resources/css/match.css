@@ -112,20 +112,23 @@
 }
 
 .match-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     margin-top: 2rem;
+    justify-content: center;
 }
 
 .match-card {
     background-color: var(--secondary-color);
-    border: 1px solid var(--tetairy-color);
     border-radius: 15px;
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+    flex: 0 0 calc(33.333% - 1rem);
+    min-width: 350px;
+    max-width: 400px;
 }
 
 .match-card:hover {
@@ -133,13 +136,7 @@
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
-.match-card.company {
-    border-left: 4px solid var(--accent-1-color);
-}
 
-.match-card.student {
-    border-left: 4px solid var(--accent-2-color);
-}
 
 .match-card h3 {
     color: var(--primary-color);
@@ -276,7 +273,14 @@
     }
     
     .match-list {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .match-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+        min-width: 300px;
     }
     
     .user-type-toggle {
@@ -287,5 +291,17 @@
     .match-stats {
         flex-direction: column;
         align-items: center;
+    }
+}
+
+@media (max-width: 1200px) {
+    .match-card {
+        flex: 0 0 calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .match-card {
+        flex: 1 1 100%;
     }
 }
