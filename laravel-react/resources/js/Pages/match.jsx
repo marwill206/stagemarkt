@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Layout from './Layout'; // Import your existing layout
 import '../../css/app.css';
 import '../../css/style.css';
-import '../../css/match.css'; // Fixed typo
+import '../../css/match.css';
 
 export default function Match({
     matches = [],
     existingMatches = [],
-    userType = 'student',
+    userType = 'company',
     currentUser = null,
     matchTitle = 'Matches', 
     matchSubtitle = '',
@@ -15,13 +16,38 @@ export default function Match({
     const [currentMatches, setCurrentMatches] = useState(matches);
     const [currentExistingMatches, setCurrentExistingMatches] = useState(existingMatches);
     const [activeTab, setActiveTab] = useState('discover');
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchMatches();
+    }, []);
+
+    const fetchMatches = async () => {
+        try {
+            const response = await fetch('/match', {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                setCurrentMatches(data.props.matches?.slice(0, limit) || []);
+            }
+        } catch (error) {
+            console.error('Error fetching matches:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleLike = async(targetId) => {
         try {
             const response = await fetch('/match/create', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', // Fixed typo
+                    'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                 },
                 body: JSON.stringify({
@@ -94,18 +120,18 @@ export default function Match({
             
             {match.type === 'company' ? (
                 <div className="company-details">
-                    <p><span className="label">Email:</span> {match.email || match.Company_Email}</p>
-                    <p><span className="label">Address:</span> {match.address || match.Company_Address || 'Not specified'}</p>
-                    <p><span className="label">Profession:</span> {match.profession || match.Profession_Name}</p>
-                    <p><span className="label">Field:</span> {match.field || 'Various'}</p>
+                    <p><span className="label">📧 Email:</span> {match.email || match.Company_Email}</p>
+                    <p><span className="label">📍 Address:</span> {match.address || match.Company_Address || 'Not specified'}</p>
+                    <p><span className="label">💼 Profession:</span> {match.profession || match.Profession_Name}</p>
+                    <p><span className="label">🏢 Field:</span> {match.field || 'Various'}</p>
                 </div>
             ) : (
                 <div className="student-details">
-                    <p><span className="label">Email:</span> {match.email || match.Student_Email}</p>
-                    <p><span className="label">Age:</span> {match.age || match.Age || 'Not specified'}</p>
-                    <p><span className="label">Profession:</span> {match.profession || match.Profession_Name}</p>
-                    <p><span className="label">School:</span> {match.school || match.School_Name}</p>
-                    <p><span className="label">Location:</span> {match.address || match.Address || 'Not specified'}</p>
+                    <p><span className="label">📧 Email:</span> {match.email || match.Student_Email}</p>
+                    <p><span className="label">🎂 Age:</span> {match.age || match.Age || 'Not specified'}</p>
+                    <p><span className="label">💼 Profession:</span> {match.profession || match.Profession_Name}</p>
+                    <p><span className="label">🏫 School:</span> {match.school || match.School_Name}</p>
+                    <p><span className="label">📍 Location:</span> {match.address || match.Address || 'Not specified'}</p>
                     {(match.about || match.About_Text) && (
                         <p><span className="label">ℹ️ About:</span> {(match.about || match.About_Text).substring(0, 100)}...</p>
                     )}
@@ -119,7 +145,7 @@ export default function Match({
                             className="btn-like"
                             onClick={() => handleLike(match.id)}
                         >
-                            <span className="like-icon"></span>
+                            <span className="like-icon">💖</span>
                             Like
                         </button>
                         <button 
@@ -135,7 +161,7 @@ export default function Match({
                             className="btn-contact"
                             onClick={() => handleContact(match)}
                         >
-                            Contact
+                            💬 Contact
                         </button>
                         <button 
                             className="btn-secondary"
@@ -161,74 +187,76 @@ export default function Match({
         </div>
     );
 
+    // Return the component wrapped in Layout
     return (
-        <>
-            <meta name="csrf-token" content={document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''} />
-            <main className="main-match">
-                <div className="match-container">
-                    <div className="match-header">
-                        <h1>{matchTitle}</h1>
-                        <p>{matchSubtitle}</p>
-                        
-                        {/* User Profile Info */}
-                        {currentUser && (
-                            <div className="user-profile">
-                                <p>Welcome, <strong>{currentUser.name}</strong> ({userType === 'student' ? 'Student' : 'Company'})</p>
-                                {currentUser.profile && (
-                                    <p>Profile: {currentUser.profile.Student_Name || currentUser.profile.Company_Name}</p>
-                                )}
-                            </div>
-                        )}
-
-                        <div className="match-tabs">
-                            <button 
-                                className={`tab-btn ${activeTab === 'discover' ? 'active' : ''}`}
-                                onClick={() => setActiveTab('discover')}
-                            >
-                                Discover ({currentMatches.length})
-                            </button>
-                            <button 
-                                className={`tab-btn ${activeTab === 'matches' ? 'active' : ''}`}
-                                onClick={() => setActiveTab('matches')}
-                            >
-                                My Matches ({currentExistingMatches.length})
-                            </button>
+        
+            <div className="match-container">
+                <div className="match-header">
+                    <h1>{matchTitle}</h1>
+                    <p>{matchSubtitle}</p>
+                    
+                    {/* User Profile Info */}
+                    {currentUser && (
+                        <div className="user-profile">
+                            <p>Welcome, <strong>{currentUser.name}</strong> ({userType === 'student' ? 'Student' : 'Company'})</p>
+                            {currentUser.profile && (
+                                <p>Profile: {currentUser.profile.Student_Name || currentUser.profile.Company_Name}</p>
+                            )}
                         </div>
-                    </div>
+                    )}
 
-                    <div className="match-content">
-                        {activeTab === 'discover' ? (
-                            <>
-                                <h2>Discover New {userType === 'student' ? 'Companies' : 'Students'}</h2>
-                                {currentMatches.length > 0 ? (
-                                    <div className="match-list">
-                                        {currentMatches.map((match) => renderMatchCard(match, false))}
-                                    </div>
-                                ) : (
-                                    <div className="no-matches">
-                                        <p>No new {userType === 'student' ? 'companies' : 'students'} found.</p>
-                                        <p>Check back later for new opportunities!</p>
-                                    </div>
-                                )}
-                            </>
-                        ) : (
-                            <>
-                                <h2>Your Matches</h2>
-                                {currentExistingMatches.length > 0 ? (
-                                    <div className="match-list">
-                                        {currentExistingMatches.map((match) => renderMatchCard(match, true))}
-                                    </div>
-                                ) : (
-                                    <div className="no-matches">
-                                        <p>You haven't made any matches yet.</p>
-                                        <p>Start liking profiles to create matches!</p>
-                                    </div>
-                                )}
-                            </>
-                        )}
+                    <div className="match-tabs">
+                        <button 
+                            className={`tab-btn ${activeTab === 'discover' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('discover')}
+                        >
+                            Discover ({currentMatches.length})
+                        </button>
+                        <button 
+                            className={`tab-btn ${activeTab === 'matches' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('matches')}
+                        >
+                            My Matches ({currentExistingMatches.length})
+                        </button>
                     </div>
                 </div>
-            </main>
-        </>
+
+                <div className="match-content">
+                    {activeTab === 'discover' ? (
+                        <>
+                            <h2>Discover New {userType === 'student' ? 'Companies' : 'Students'}</h2>
+                            {loading ? (
+                                <div className="loading">
+                                    <p>Loading opportunities...</p>
+                                </div>
+                            ) : currentMatches.length > 0 ? (
+                                <div className="match-list">
+                                    {currentMatches.map((match) => renderMatchCard(match, false))}
+                                </div>
+                            ) : (
+                                <div className="no-matches">
+                                    <p>No new {userType === 'student' ? 'companies' : 'students'} found.</p>
+                                    <p>Check back later for new opportunities!</p>
+                                </div>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <h2>Your Matches</h2>
+                            {currentExistingMatches.length > 0 ? (
+                                <div className="match-list">
+                                    {currentExistingMatches.map((match) => renderMatchCard(match, true))}
+                                </div>
+                            ) : (
+                                <div className="no-matches">
+                                    <p>You haven't made any matches yet.</p>
+                                    <p>Start liking profiles to create matches!</p>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </div>
+            </div>
+        
     );
 }

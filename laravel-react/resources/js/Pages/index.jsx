@@ -1,12 +1,22 @@
 import React from 'react';
-import dataCities from '../../json/cities.json'; // Import the JSON file
+import dataCities from '../../json/cities.json';
 import Layout from './Layout';
-import arrowIcon from '../../images/arrow-icon.svg'
+import HomeMatches from './match'; // Import the HomeMatches component
 
 
-export default function Index() {
+export default function Index({
+    // Add the same props that HomeMatches expects
+    matches = [],
+    existingMatches = [],
+    userType = 'student',
+    currentUser = null,
+    matchTitle = 'Find Your Perfect Match',
+    matchSubtitle = 'Connect with companies and students for internship opportunities',
+    totalMatches = 0
+}) {
     return (
-        <div>
+        <Layout>
+            {/* Keep the search header */}
             <div className="header-bottom">
                 <div className="search-image"></div>
                 <div className="search">
@@ -42,8 +52,8 @@ export default function Index() {
                             <h2>Zoeken naar</h2>
                             <p>Stages</p>
                             <label className="switch">
-                            <input type="checkbox" />
-                            <span className="slider round"></span>
+                                <input type="checkbox" />
+                                <span className="slider round"></span>
                             </label>
                             <p>Leerbedrijven</p>
                         </div>
@@ -56,30 +66,17 @@ export default function Index() {
                     </div>
                 </div>
             </div>
-            <main className="homePage">
-                <div className="company-card">
-                    <div className="card-img">
-                        <img src="https://placehold.co/32x18" alt="Company Logo"/>
-                    </div>
-                    <div className="card-text">
-                        <p className="card-text-name">Het Bureau</p>
-                        <h2 className="card-text-function">Webdev</h2>
-                        <p className="card-text-location">KWL 7</p>
-                        <hr className="card-text-line"/>
-                        <button className="card-button">Bekijk vacature <img src={arrowIcon}/></button>
-                    </div>
-                    
-                </div>
-                <div className="company-card">
 
-                </div>
-                <div className="company-card">
-
-                </div>
-            </main>
-        </div>
+            {/* Replace the homepage content with HomeMatches component */}
+            <HomeMatches 
+                matches={matches}
+                existingMatches={existingMatches}
+                userType={userType}
+                currentUser={currentUser}
+                matchTitle={matchTitle}
+                matchSubtitle={matchSubtitle}
+            />
+        </Layout>
     );
 }
 
-// Attach layout so Inertia or pages themselves can use it
-Index.layout = page => <Layout>{page}</Layout>;
