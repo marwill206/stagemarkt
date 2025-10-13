@@ -50,3 +50,6 @@ Route::get('/student/dashboard', function() {
 Route::get('/company/dashboard', function() {
     return view('company.dashboard');
 })->name('company.dashboard');
+
+// Search route
+Route::post('/api/search', [HeaderController::class, 'search'])->name('search');

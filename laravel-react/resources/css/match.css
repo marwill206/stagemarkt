@@ -26,7 +26,7 @@
 
 .match-header p {
     color: var(--primary-color);
-    font-size: 1.2rem;
+    font-size: 1.9rem;
     margin-bottom: 2rem;
 }
 
@@ -111,6 +111,10 @@
     margin-top: 2rem;
 }
 
+.match-content h2 {
+font-size: 1.5rem;
+}
+
 .match-list {
     display: flex;
     flex-wrap: wrap;
@@ -164,7 +168,7 @@
 
 .btn-like {
     padding: 0.5rem 1rem;
-    background-color: var(--accent-2-color);
+    background-color: var(--core-color);
     color: var(--secondary-color);
     border: none;
     border-radius: 5px;
@@ -178,7 +182,7 @@
 
 .btn-like:hover {
     background-color: #e6a419;
-    transform: scale(1.05);
+color: black;
 }
 
 .btn-like.liked {
