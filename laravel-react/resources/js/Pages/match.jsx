@@ -234,7 +234,7 @@ export default function Match({
                                 className="btn-like"
                                 onClick={() => handleLike(match.id)}
                             >
-                                <span className="like-icon">💖</span>
+
                                 Like
                             </button>
                             <button
@@ -243,8 +243,8 @@ export default function Match({
                             >
                                 {matchType === "student" &&
                                 (match.portfolio || match.Portfolio_Link)
-                                    ? "View Portfolio"
-                                    : "View Details"}
+                                    ? "Bekijk Portfolio"
+                                    : "Bekijk Details"}
                             </button>
                         </>
                     ) : (

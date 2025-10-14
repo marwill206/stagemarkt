@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dataCities from "../../json/cities.json";
 import Layout from "./Layout";
 import HomeMatches from "./match"; // Import the HomeMatches component
@@ -14,6 +14,14 @@ export default function Index({
     totalMatches = 0,
 }) {
     const [searchOpleiding, setSearchOpleiding] = useState("");
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchTerm = urlParams.get("opleiding");
+        if (searchTerm) {
+            setSearchOpleiding(searchTerm);
+        }
+    }, []);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -32,8 +40,9 @@ export default function Index({
                         <div className="search-top">
                             <div className="search-section">
                                 <label htmlFor="opleiding">
-                                    Opleiding, bedrijfsnaam of trefwoord
+                                    Zoek opleiding
                                 </label>
+                                <br />
                                 <input
                                     type="search"
                                     className="search-input"
@@ -79,7 +88,9 @@ export default function Index({
                                 </select>
                             </div>
                             <div className="search-section" id="search-button">
-                                <button type="submit" className="search-input">Zoeken</button>
+                                <button type="submit" className="search-input">
+                                    Zoeken
+                                </button>
                             </div>
                         </div>
                     </form>
