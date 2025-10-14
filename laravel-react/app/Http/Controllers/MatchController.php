@@ -16,11 +16,11 @@ class MatchController extends Controller
     {
         // Get current authenticated user or use demo user
         $user = Auth::user();
-        
+
         if (!$user) {
             // For demo purposes, create a demo user if none exists
             $user = User::with(['student.profession', 'student.school', 'company.profession'])->first();
-            
+
             if (!$user) {
                 // Create a demo user linked to first student
                 $firstStudent = Student::first();
@@ -50,10 +50,10 @@ class MatchController extends Controller
         if ($userType === 'student') {
             // Student sees companies they haven't matched with yet
             $matches = Company::with(['profession'])
-                ->whereNotIn('Company_ID', function($query) use ($userId) {
+                ->whereNotIn('Company_ID', function ($query) use ($userId) {
                     $query->select('Company_ID')
-                          ->from('matches')
-                          ->where('Student_ID', $userId);
+                        ->from('matches')
+                        ->where('Student_ID', $userId);
                 })
                 ->get()
                 ->map(function ($company) {
@@ -79,17 +79,29 @@ class MatchController extends Controller
                     'professions.Profession_Name'
                 )
                 ->orderBy('match_date', 'desc')
-                ->get();
-                
+                ->get()
+                 ->map(function ($company) {
+                    return [
+                        'id' => $company->Company_ID,
+                        'name' => $company->Company_Name,
+                        'email' => $company->Company_Email,
+                        'address' => $company->Company_Address,
+                        'profession' => $company->profession ? $company->profession->Profession_Name : 'N/A',
+                        'field' => $company->field,
+                        'type' => 'company'
+                    ];
+                });
+               
+
             $matchTitle = 'Companies Looking for Students';
             $matchSubtitle = 'Find your perfect internship or job opportunity';
         } else {
             // Company sees students they haven't matched with yet
             $matches = Student::with(['profession', 'school'])
-                ->whereNotIn('Student_ID', function($query) use ($userId) {
+                ->whereNotIn('Student_ID', function ($query) use ($userId) {
                     $query->select('Student_ID')
-                          ->from('matches')
-                          ->where('Company_ID', $userId);
+                        ->from('matches')
+                        ->where('Company_ID', $userId);
                 })
                 ->get()
                 ->map(function ($student) {
@@ -121,7 +133,7 @@ class MatchController extends Controller
                 )
                 ->orderBy('match_date', 'desc')
                 ->get();
-            
+
             $matchTitle = 'Students Looking for Opportunities';
             $matchSubtitle = 'Find talented students for your company';
         }
@@ -147,7 +159,7 @@ class MatchController extends Controller
     public function createMatch(Request $request)
     {
         $user = Auth::user() ?? User::first();
-        
+
         if (!$user) {
             return response()->json(['message' => 'User not found'], 401);
         }
@@ -165,13 +177,13 @@ class MatchController extends Controller
 
         // Check if match already exists
         $existingMatch = DB::table('matches')
-            ->when($userType === 'student', function($query) use ($userId, $validated) {
+            ->when($userType === 'student', function ($query) use ($userId, $validated) {
                 return $query->where('Student_ID', $userId)
-                           ->where('Company_ID', $validated['target_id']);
+                    ->where('Company_ID', $validated['target_id']);
             })
-            ->when($userType === 'company', function($query) use ($userId, $validated) {
+            ->when($userType === 'company', function ($query) use ($userId, $validated) {
                 return $query->where('Company_ID', $userId)
-                           ->where('Student_ID', $validated['target_id']);
+                    ->where('Student_ID', $validated['target_id']);
             })
             ->first();
 
@@ -196,7 +208,7 @@ class MatchController extends Controller
                     'updated_at' => now()
                 ]);
             }
-            
+
             return response()->json(['message' => 'Match created successfully!'], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to create match: ' . $e->getMessage()], 500);
@@ -206,7 +218,7 @@ class MatchController extends Controller
     public function removeMatch(Request $request)
     {
         $user = Auth::user() ?? User::first();
-        
+
         if (!$user) {
             return response()->json(['message' => 'User not found'], 401);
         }
@@ -224,13 +236,13 @@ class MatchController extends Controller
 
         try {
             $deleted = DB::table('matches')
-                ->when($userType === 'student', function($query) use ($userId, $validated) {
+                ->when($userType === 'student', function ($query) use ($userId, $validated) {
                     return $query->where('Student_ID', $userId)
-                               ->where('Company_ID', $validated['target_id']);
+                        ->where('Company_ID', $validated['target_id']);
                 })
-                ->when($userType === 'company', function($query) use ($userId, $validated) {
+                ->when($userType === 'company', function ($query) use ($userId, $validated) {
                     return $query->where('Company_ID', $userId)
-                               ->where('Student_ID', $validated['target_id']);
+                        ->where('Student_ID', $validated['target_id']);
                 })
                 ->delete();
 
