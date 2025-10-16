@@ -27,12 +27,20 @@ class AuthManager extends Controller
     // 🟩 Handle registration
     public function registerPost(Request $request)
     {
+        // dd($request->all());
         // Validate inputs
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
             'role' => 'required|in:student,company',
+
+            // optional additional validation if you want these fields required later
+            'Portfolio_Link' => 'nullable|string|min:0',
+            'About_Text' => 'nullable|string|min:0',
+            'Address' => 'nullable|string|min:0',
+            'Age' => 'nullable|integer|min:0',
+            'Gender' => 'nullable|string|max:10',
         ]);
 
         // Create user
@@ -46,15 +54,23 @@ class AuthManager extends Controller
         if (!$user) {
             return redirect(route('register'))->with("error", "Registreren is niet gelukt, probeer het later opnieuw");
         }
-
         // Create role-specific record
         if ($user->role === 'student') {
-            Student::create([
+            $stdqry = Student::create([
                 'User_ID' => $user->id,
                 'Student_Name' => $user->name,
                 'Student_Email' => $user->email,
-                'Profession_ID' => null,
+                'profession_ID' => null,
+                'Portfolio_Link' => $request->Portfolio_Link,
+                'About_Text' => $request->About_Text,
+                'Address' => $request->Address,
+                'Age' => $request->Age,
+                'Gender' => $request->Gender,
+
+
             ]);
+
+            // dd($stdqry);
         } elseif ($user->role === 'company') {
             Company::create([
                 'User_ID' => $user->id,
