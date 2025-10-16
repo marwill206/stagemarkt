@@ -41,6 +41,10 @@ class AuthManager extends Controller
             'Address' => 'nullable|string|min:0',
             'Age' => 'nullable|integer|min:0',
             'Gender' => 'nullable|string|max:10',
+
+            'Company_Address' => 'nullable|string|min:0',
+            'KVK' => 'nullable|string|min:0',
+            'field' => 'nullable|string|min:0',
         ]);
 
         // Create user
@@ -76,6 +80,9 @@ class AuthManager extends Controller
                 'User_ID' => $user->id,
                 'Company_Name' => $user->name,
                 'Company_Email' => $user->email,
+                'Company_Address'=> $request->Company_Address,
+                'KVK'=> $request->KVK,
+                'field'=> $request->field,
                 'Profession_ID' => null,
             ]);
         }
