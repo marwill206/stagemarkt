@@ -50,7 +50,7 @@ class HeaderController extends Controller
         $matches = collect();
         $existingMatches = collect();
         $matchTitle = 'Welcome to Stagemarkt';
-        $matchSubtitle = 'Vind jouw perfecte stagier.';
+        $matchSubtitle = 'Vind jouw perfecte stagiair.';
 
         $allProfessions = Profession::all()->pluck('Profession_Name')->toArray();
 
@@ -167,7 +167,7 @@ class HeaderController extends Controller
                     $matchSubtitle = "Studenten met {$searchOpleiding} achtergrond";
                 } else {
                     $matchTitle = 'Students Looking for Opportunities';
-                    $matchSubtitle = 'Vind jouw perfecte stagier.';
+                    $matchSubtitle = 'Vind jouw perfecte stagiair.';
                 }
             }
         }
