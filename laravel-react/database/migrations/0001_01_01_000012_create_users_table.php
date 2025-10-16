@@ -18,8 +18,18 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
              $table->enum('role', ['student', 'company']);
+            
+            // Add user type and foreign keys
+            $table->enum('user_type', ['student', 'company']);
+            $table->unsignedBigInteger('student_id')->nullable();
+            $table->unsignedBigInteger('company_id')->nullable();
+            
             $table->rememberToken();
             $table->timestamps();
+            
+            // Foreign key constraints (now safe because tables exist)
+            $table->foreign('student_id')->references('Student_ID')->on('students')->onDelete('set null');
+            $table->foreign('company_id')->references('Company_ID')->on('companies')->onDelete('set null');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
