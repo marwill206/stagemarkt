@@ -21,23 +21,23 @@ export default function persona() {
                 <div className="persona-info">
                     <h2>Persoonlijke gegevens</h2>
                     <label>
-                        <img className="persona-icon" src={userIcon} alt="Age icon" />
+                        <img className="persona-icon" src={userIcon} alt="Age icon" title="Leeftijd" />
                         <p className="persona-value">21</p>
                     </label>
                     <label>
-                        <img className="persona-icon" src={workIcon} alt="work icon" />
+                        <img className="persona-icon" src={workIcon} alt="work icon" title="Bedrijf"/>
                         <p className="persona-value">Het Bureau</p>
                     </label>
                     <label>
-                        <img className="persona-icon" src={genderIcon} alt="Gender icon" />
+                        <img className="persona-icon" src={genderIcon} alt="Gender icon" title="Gender"/>
                         <p className="persona-value">Man</p>
                     </label>
                     <label>
-                        <img className="persona-icon" src={pathIcon} alt="path icon" />
+                        <img className="persona-icon" src={pathIcon} alt="path icon" title="Opleiding"/>
                         <p className="persona-value">Webdeveloper</p>
                     </label>
                     <label>
-                        <img className="persona-icon" src={locationIcon} alt="Location icon" />
+                        <img className="persona-icon" src={locationIcon} alt="Location icon" title="Adres"/>
                         <p className="persona-value">Terwijde</p>
                     </label>
                 </div>
