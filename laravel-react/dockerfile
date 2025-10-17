@@ -28,8 +28,13 @@ RUN npm install && npm run build
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 RUN chmod -R 775 /app/storage /app/bootstrap/cache
 
-# 10. Expose Render's port
+# 10. Add wait-for-it script to wait for the database
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/local/bin/wait-for-it
+RUN chmod +x /usr/local/bin/wait-for-it
+
+# 11. Expose Render's port
 EXPOSE 10000
 
-# 11. Start Laravel with proper host binding
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
+# 12. Start Laravel with proper host binding
+CMD /usr/local/bin/wait-for-it $DB_HOST:$DB_PORT --timeout=30 --strict -- \
+    php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
