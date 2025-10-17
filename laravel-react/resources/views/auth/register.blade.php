@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
   <div class="mt-5">
+    {{-- Error and success messages --}}
     @if($errors->any())
     <div class="col-12">
       @foreach ($errors->all() as $error)
@@ -23,6 +24,7 @@
   <form action="{{ route('register.post') }}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px">
     @csrf
 
+    {{-- Basic user info --}}
     <div class="mb-3">
       <label class="form-label">Fullname</label>
       <input type="text" class="form-control" name="name" required>
@@ -47,17 +49,20 @@
       </select>
     </div>
 
-    <!-- Student Questions -->
+    {{-- Student Section --}}
     <div id="studentQuestions" class="mb-3" style="display: none;">
       <h6 class="mt-3">Student Information</h6>
+
       <div class="mb-2">
         <label class="form-label">Portfolio</label>
         <input type="text" class="form-control" name="Portfolio_Link">
       </div>
+
       <div class="mb-2">
         <label class="form-label">About Me</label>
         <input type="text" class="form-control" name="About_Text">
       </div>
+
       <div class="mb-2">
         <label class="form-label">Address</label>
         <input type="text" class="form-control" name="Address">
@@ -65,7 +70,7 @@
 
       <div class="mb-2">
         <label class="form-label">Age</label>
-        <input type="text" class="form-control" name="Age">
+        <input type="number" class="form-control" name="Age">
       </div>
 
       <div class="mb-3">
@@ -89,26 +94,47 @@
           @endforeach
         </select>
       </div>
+
       <div class="mb-2">
         <label class="form-label">School</label>
         <input type="text" class="form-control" name="School_ID">
       </div>
     </div>
 
-    <!-- Company Questions -->
+    {{-- Company Section --}}
     <div id="companyQuestions" class="mb-3" style="display: none;">
       <h6 class="mt-3">Company Information</h6>
+
       <div class="mb-2">
         <label class="form-label">Company Name</label>
-        <input type="text" class="form-control" name="company_name">
+        <input type="text" class="form-control" name="Company_Name">
       </div>
+
       <div class="mb-2">
         <label class="form-label">Company Address</label>
-        <input type="text" class="form-control" name="company_address">
+        <input type="text" class="form-control" name="Company_Address">
       </div>
+
       <div class="mb-2">
-        <label class="form-label">Contact Person</label>
-        <input type="text" class="form-control" name="contact_person">
+        <label class="form-label">KVK</label>
+        <input type="text" class="form-control" name="KVK">
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Field</label>
+        <input type="text" class="form-control" name="field">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Profession</label>
+        <select name="profession_id" class="form-select">
+          <option value="">-- Select Profession --</option>
+          @php
+          $professions = \App\Models\Profession::all();
+          @endphp
+          @foreach($professions as $profession)
+          <option value="{{ $profession->Profession_ID }}">{{ $profession->Profession_Name }}</option>
+          @endforeach
+        </select>
       </div>
       <div class="mb-3">
         <label class="form-label">Profession</label>
@@ -130,22 +156,38 @@
   </form>
 </div>
 
+{{-- ✅ JavaScript: show/hide sections and manage required fields --}}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const roleSelect = document.getElementById('roleSelect');
     const studentQuestions = document.getElementById('studentQuestions');
     const companyQuestions = document.getElementById('companyQuestions');
 
+    // Helper to toggle "required" dynamically
+    function setRequired(container, enable) {
+      const inputs = container.querySelectorAll('input, select, textarea');
+      inputs.forEach(el => {
+        if (enable) el.setAttribute('required', true);
+        else el.removeAttribute('required');
+      });
+    }
+
     roleSelect.addEventListener('change', function() {
       if (this.value === 'student') {
         studentQuestions.style.display = 'block';
         companyQuestions.style.display = 'none';
+        setRequired(studentQuestions, true);
+        setRequired(companyQuestions, false);
       } else if (this.value === 'company') {
         companyQuestions.style.display = 'block';
         studentQuestions.style.display = 'none';
+        setRequired(companyQuestions, true);
+        setRequired(studentQuestions, false);
       } else {
         studentQuestions.style.display = 'none';
         companyQuestions.style.display = 'none';
+        setRequired(companyQuestions, false);
+        setRequired(studentQuestions, false);
       }
     });
   });
