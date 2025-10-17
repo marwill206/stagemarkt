@@ -87,8 +87,8 @@ export default function Index({
                                     <option value="50">+50km</option>
                                 </select>
                             </div>
-                            <div className="search-section" >
-                                <button type="submit" id="search-button" className="search-input">
+                            <div className="search-section" id="search-button">
+                                <button type="submit" className="search-input">
                                     Zoeken
                                 </button>
                             </div>
