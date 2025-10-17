@@ -25,32 +25,20 @@ class HeaderController extends Controller
 
         if (!$user) {
             // For demo purposes, create a demo user if none exists
-            $user = User::with(['student.profession', 'student.school', 'company.profession'])->first();
-
-            if (!$user) {
-                // Create a demo user linked to first student
-                $firstStudent = Student::first();
-                if ($firstStudent) {
-                    $user = User::create([
-                        'name' => $firstStudent->Student_Name,
-                        'email' => $firstStudent->Student_Email,
-                        'password' => bcrypt('password'),
-                        'user_type' => 'student',
-                        'role' => 'student',
-                        'student_id' => $firstStudent->Student_ID,
-                        'company_id' => null,
-                    ]);
-                }
-            }
+           return redirect()->route('login')->with('error', 'lOG in');
         }
 
         $userType = $user ? $user->getUserType() : 'student';
         $userId = $user ? $user->getProfileId() : null;
 
+        if (!$userId) {
+            return redirect()->route('login')->with('error', 'Your profile is not properly set up. Please contact support.');
+        }
+
         $matches = collect();
         $existingMatches = collect();
         $matchTitle = 'Welcome to Stagemarkt';
-        $matchSubtitle = 'Vind jouw perfecte stagier.';
+        $matchSubtitle = 'Vind jouw perfecte stagiair.';
 
         $allProfessions = Profession::all()->pluck('Profession_Name')->toArray();
 
@@ -80,6 +68,7 @@ class HeaderController extends Controller
                             'address' => $company->Company_Address,
                             'profession' => $company->profession ? $company->profession->Profession_Name : 'N/A',
                             'field' => $company->field,
+                            'Website_Link' => $company->Website_Link,
                             'type' => 'company'
                         ];
                     });
@@ -167,7 +156,7 @@ class HeaderController extends Controller
                     $matchSubtitle = "Studenten met {$searchOpleiding} achtergrond";
                 } else {
                     $matchTitle = 'Students Looking for Opportunities';
-                    $matchSubtitle = 'Vind jouw perfecte stagier.';
+                    $matchSubtitle = 'Vind jouw perfecte stagiair.';
                 }
             }
         }

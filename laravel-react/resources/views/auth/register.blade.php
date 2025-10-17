@@ -5,19 +5,19 @@
   <div class="mt-5">
     {{-- Error and success messages --}}
     @if($errors->any())
-      <div class="col-12">
-        @foreach ($errors->all() as $error)
-          <div class="alert alert-danger">{{ $error }}</div>
-        @endforeach
-      </div>
+    <div class="col-12">
+      @foreach ($errors->all() as $error)
+      <div class="alert alert-danger">{{ $error }}</div>
+      @endforeach
+    </div>
     @endif
 
     @if (session()->has('error'))
-      <div class="alert alert-danger">{{ session('error') }}</div>
+    <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
     @if (session()->has('success'))
-      <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success">{{ session('success') }}</div>
     @endif
   </div>
 
@@ -25,10 +25,11 @@
     @csrf
 
     {{-- Basic user info --}}
-    <div class="mb-3">
-      <label class="form-label">Fullname</label>
-      <input type="text" class="form-control" name="name" required>
-    </div>
+
+       <div class="mb-3">
+        <label class="form-label">Volledige/Bedrijfs naam</label>
+        <input type="text" class="form-control" name="name" required>
+      </div>
 
     <div class="mb-3">
       <label class="form-label">Email address</label>
@@ -59,67 +60,96 @@
       </div>
 
       <div class="mb-2">
-        <label class="form-label">About Me</label>
+        <label class="form-label">Over mij</label>
         <input type="text" class="form-control" name="About_Text">
       </div>
 
       <div class="mb-2">
-        <label class="form-label">Address</label>
+        <label class="form-label">Adres</label>
         <input type="text" class="form-control" name="Address">
       </div>
 
       <div class="mb-2">
-        <label class="form-label">Age</label>
+        <label class="form-label">Leeftijd</label>
         <input type="number" class="form-control" name="Age">
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Gender</label>
+        <label class="form-label">Geslacht</label>
         <select name="Gender" class="form-select">
-          <option value="">-- Select Gender --</option>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
+          <option value="">-- Selecteer Geslacht --</option>
+          <option value="Male">Man</option>
+          <option value="Female">Vrouw</option>
+          <option value="Other">Anders</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Studie</label>
+        <select name="Profession_ID" class="form-select">
+          <option value="">-- Selecteer Studie --</option>
+          @php
+          $professions = \App\Models\Profession::all();
+          @endphp
+          @foreach($professions as $profession)
+          <option value="{{ $profession->Profession_ID }}">{{ $profession->Profession_Name }}</option>
+          @endforeach
         </select>
       </div>
 
       <div class="mb-2">
-        <label class="form-label">Profession</label>
-        <input type="text" class="form-control" name="Profession_ID">
-      </div>
-
-      <div class="mb-2">
         <label class="form-label">School</label>
-        <input type="text" class="form-control" name="School_ID">
+        <select name="School_ID" class="form-select">
+          <option value="">-- Selecteer School --</option>
+          @php
+          $schools = \App\Models\School::all();
+          @endphp
+          @foreach($schools as $school)
+          <option value="{{ $school->School_ID }}">{{ $school->School_Name }}</option>
+          @endforeach
+        </select>
       </div>
     </div>
 
     {{-- Company Section --}}
     <div id="companyQuestions" class="mb-3" style="display: none;">
-      <h6 class="mt-3">Company Information</h6>
+      <h6 class="mt-3">Bedrijf Informatie</h6>
 
       <div class="mb-2">
-        <label class="form-label">Company Name</label>
-        <input type="text" class="form-control" name="Company_Name">
-      </div>
-
-      <div class="mb-2">
-        <label class="form-label">Company Address</label>
+        <label class="form-label">Bedrijf Adres</label>
         <input type="text" class="form-control" name="Company_Address">
       </div>
 
       <div class="mb-2">
         <label class="form-label">KVK</label>
-        <input type="text" class="form-control" name="KVK">
+        <input type="number" class="form-control" name="KVK" maxlength="8">
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Website</label>
+        <input type="text" class="form-control" name="Website_Link">
       </div>
 
       <div class="mb-2">
         <label class="form-label">Field</label>
         <input type="text" class="form-control" name="field">
       </div>
+      <div class="mb-3">
+        <label class="form-label">Studie</label>
+        <select name="profession_id" class="form-select">
+          <option value="">-- Selecteer Studie --</option>
+          @php
+          $professions = \App\Models\Profession::all();
+          @endphp
+          @foreach($professions as $profession)
+          <option value="{{ $profession->Profession_ID }}">{{ $profession->Profession_Name }}</option>
+          @endforeach
+        </select>
+      </div>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-3 w-100">Register</button>
+    <button type="submit" class="btn btn-primary">aanmelden</button>
+
+    <a href="{{ route('login') }}" class="btn btn-primary">Heb al een account</a>
   </form>
 </div>
 

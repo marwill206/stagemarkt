@@ -19,6 +19,7 @@ class Company extends Model
         'KVK',
         'Profession_ID',
         'field',
+        'Website_Link',
     ];
 
     public function profession()

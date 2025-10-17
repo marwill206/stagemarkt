@@ -10,6 +10,9 @@ export default function Header() {
                     <a href="#">FAQ</a>
                     <a href="#">Contact</a>
                     <a href="#">Nieuwe opleidingsnamen</a>
+                    <a href="/logout" className="logout-link">
+                                Logout
+                            </a>
                 </nav>
             </div>
         </header>
