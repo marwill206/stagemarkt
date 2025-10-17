@@ -32,12 +32,9 @@ RUN chmod -R 775 /app/storage /app/bootstrap/cache
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/local/bin/wait-for-it
 RUN chmod +x /usr/local/bin/wait-for-it
 
-# 11. Generate the APP_KEY
-RUN php artisan key:generate --ansi
-
-# 12. Expose Render's port
+# 11. Expose Render's port
 EXPOSE 10000
 
-# 13. Start Laravel with proper host binding
+# 12. Start Laravel with proper host binding
 CMD /usr/local/bin/wait-for-it $DB_HOST:$DB_PORT --timeout=30 --strict -- \
     php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
