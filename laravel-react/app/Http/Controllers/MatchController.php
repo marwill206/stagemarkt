@@ -64,6 +64,7 @@ class MatchController extends Controller
                         'address' => $company->Company_Address,
                         'profession' => $company->profession ? $company->profession->Profession_Name : 'N/A',
                         'field' => $company->field,
+                        'Website_Link' => $company->Website_Link,
                         'type' => 'company'
                     ];
                 });
@@ -80,7 +81,7 @@ class MatchController extends Controller
                 )
                 ->orderBy('match_date', 'desc')
                 ->get()
-                 ->map(function ($company) {
+                ->map(function ($company) {
                     return [
                         'id' => $company->Company_ID,
                         'name' => $company->Company_Name,
@@ -91,7 +92,7 @@ class MatchController extends Controller
                         'type' => 'company'
                     ];
                 });
-               
+
 
             $matchTitle = 'Companies Looking for Students';
             $matchSubtitle = 'Find your perfect internship or job opportunity';

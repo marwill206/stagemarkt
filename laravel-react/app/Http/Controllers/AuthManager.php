@@ -41,12 +41,12 @@ class AuthManager extends Controller
             'Address' => 'nullable|string|min:0',
             'Age' => 'nullable|integer|min:0',
             'Gender' => 'nullable|string|max:10',
-
+            'Website_Link' => 'nullable|string|min:0',
             'Company_Address' => 'nullable|string|min:0',
             'KVK' => 'nullable|string|digits:8',
             'field' => 'nullable|string|min:0',
         ], [
-             'KVK.digits' => 'KVK moet 8 nummers zijn'
+            'KVK.digits' => 'KVK moet 8 nummers zijn'
         ]);
 
         // Create user
@@ -72,7 +72,7 @@ class AuthManager extends Controller
                 'Age' => $request->Age,
                 'Gender' => $request->Gender,
                 'Profession_ID' => $request->Profession_ID,
-
+                'School_ID' => $request->School_ID,
 
             ]);
 
@@ -90,6 +90,7 @@ class AuthManager extends Controller
                 'KVK' => $request->KVK,
                 'field' => $request->field,
                 'Profession_ID' => $request->profession_id,
+                'Website_Link' => $request->Website_Link,
             ]);
 
             $user->update([

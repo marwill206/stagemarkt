@@ -20,8 +20,9 @@ class CompanyController extends Controller
             'Company_Email' => 'required|email|unique:companies,Company_Email',
             'Company_Address' => 'nullable|string',
             'KVK' => 'nullable|string',
-            'Profession_ID' => 'nullable|exists:professions,Profession_ID', // Made nullable
+            'Profession_ID' => 'nullable|exists:professions,Profession_ID', 
             'field' => 'nullable|string',
+            'Website_Link' => 'nullable|url',
         ]);
 
         return Company::create($validated);
@@ -41,8 +42,9 @@ class CompanyController extends Controller
             'Company_Email' => 'required|email|unique:companies,Company_Email,' . $id . ',Company_ID',
             'Company_Address' => 'nullable|string',
             'KVK' => 'nullable|string',
-            'Profession_ID' => 'nullable|exists:professions,Profession_ID', // Made nullable
+            'Profession_ID' => 'nullable|exists:professions,Profession_ID', 
             'field' => 'nullable|string',
+            'Website_Link' => 'nullable|url',
         ]);
 
         $company->update($validated);

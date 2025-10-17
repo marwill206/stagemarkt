@@ -68,6 +68,7 @@ class HeaderController extends Controller
                             'address' => $company->Company_Address,
                             'profession' => $company->profession ? $company->profession->Profession_Name : 'N/A',
                             'field' => $company->field,
+                            'Website_Link' => $company->Website_Link,
                             'type' => 'company'
                         ];
                     });

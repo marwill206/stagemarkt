@@ -131,12 +131,8 @@ export default function Match({
             (match.portfolio || match.Portfolio_Link)
         ) {
             window.open(match.portfolio || match.Portfolio_Link, "_blank");
-        } else {
-            alert(
-                `View details for ${
-                    match.name || match.Student_Name || match.Company_Name
-                }`
-            );
+        } else if (match.Website || match.Website_Link) {
+            window.open(match.Website || match.Website_Link, "_blank");
         }
     };
 
@@ -162,24 +158,52 @@ export default function Match({
             }
         }
 
-        const handleViewPortfolio = (match) => {
-        const portfolioUrl = match.portfolio || match.Portfolio_Link;
-        
-        if (portfolioUrl) {
-            // Check if URL starts with http:// or https://
-            let fullUrl = portfolioUrl;
-            if (!portfolioUrl.startsWith('http://') && !portfolioUrl.startsWith('https://')) {
-                fullUrl = 'https://' + portfolioUrl;
-            }
-            
-            // Open in new tab
-            window.open(fullUrl, '_blank', 'noopener,noreferrer');
-        } else {
-            alert('No portfolio link available for this student.');
-        }
-    };
+        const handleViewWebsite = (match) => {
+            const websiteUrl = match.Website || match.Website_Link;
 
-       const hasPortfolio = matchType === "student" && (match.portfolio || match.Portfolio_Link);
+            if (websiteUrl) {
+                // Check if URL starts with http:// or https://
+                let fullUrl = websiteUrl;
+                if (
+                    !websiteUrl.startsWith("http://") &&
+                    !websiteUrl.startsWith("https://")
+                ) {
+                    fullUrl = "https://" + websiteUrl;
+                }
+
+                // Open in new tab
+                window.open(fullUrl, "_blank", "noopener,noreferrer");
+            } else {
+                alert("No website link available for this company.");
+            }
+        };
+
+        const handleViewPortfolio = (match) => {
+            const portfolioUrl = match.portfolio || match.Portfolio_Link;
+
+            if (portfolioUrl) {
+                // Check if URL starts with http:// or https://
+                let fullUrl = portfolioUrl;
+                if (
+                    !portfolioUrl.startsWith("http://") &&
+                    !portfolioUrl.startsWith("https://")
+                ) {
+                    fullUrl = "https://" + portfolioUrl;
+                }
+
+                // Open in new tab
+                window.open(fullUrl, "_blank", "noopener,noreferrer");
+            } else {
+                alert("No portfolio link available for this student.");
+            }
+        };
+
+        const hasPortfolio =
+            matchType === "student" &&
+            (match.portfolio || match.Portfolio_Link);
+
+        const hasWebsite =
+            matchType === "company" && (match.Website || match.Website_Link);
 
         return (
             <div
@@ -210,6 +234,19 @@ export default function Match({
                             <span className="label">field:</span>{" "}
                             {match.field || "Various"}
                         </p>
+                        {hasWebsite && (
+                            <p className="btn-secondary">
+                                <a
+                                    href="#"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleViewWebsite(match);
+                                    }}
+                                >
+                                    bekijk Website
+                                </a>
+                            </p>
+                        )}
                     </div>
                 ) : (
                     <div className="student-details">
@@ -253,23 +290,21 @@ export default function Match({
                                 className="btn-like"
                                 onClick={() => handleLike(match.id)}
                             >
-
                                 Like
                             </button>
-                          {hasPortfolio && (
-                            <p className="btn-secondary">
-                                <a 
-                                    href="#" 
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handleViewPortfolio(match);
-                                    }}
-                                    
-                                >
-                                    View Portfolio
-                                </a>
-                            </p>
-                        )}
+                            {hasPortfolio && (
+                                <p className="btn-secondary">
+                                    <a
+                                        href="#"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleViewPortfolio(match);
+                                        }}
+                                    >
+                                        Bekijk Portfolio
+                                    </a>
+                                </p>
+                            )}
                         </>
                     ) : (
                         <>
@@ -279,22 +314,21 @@ export default function Match({
                             >
                                 Contact
                             </button>
-                        
-                           {hasPortfolio && (
-                            <p className="btn-secondary">
-                                <a 
-                                    href="#" 
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handleViewPortfolio(match);
-                                    }}
-                                    
-                                >
-                                    View Portfolio
-                                </a>
-                            </p>
-                        )}
-                        
+
+                            {hasPortfolio && (
+                                <p className="btn-secondary">
+                                    <a
+                                        href="#"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleViewPortfolio(match);
+                                        }}
+                                    >
+                                        Bekijk Portfolio
+                                    </a>
+                                </p>
+                            )}
+
                             <button
                                 className="btn-unlike"
                                 onClick={() =>

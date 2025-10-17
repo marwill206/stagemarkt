@@ -25,10 +25,11 @@
     @csrf
 
     {{-- Basic user info --}}
-    <div class="mb-3">
-      <label class="form-label">Fullname</label>
-      <input type="text" class="form-control" name="name" required>
-    </div>
+
+       <div class="mb-3">
+        <label class="form-label">Volledige/Bedrijfs naam</label>
+        <input type="text" class="form-control" name="name" required>
+      </div>
 
     <div class="mb-3">
       <label class="form-label">Email address</label>
@@ -59,33 +60,33 @@
       </div>
 
       <div class="mb-2">
-        <label class="form-label">About Me</label>
+        <label class="form-label">Over mij</label>
         <input type="text" class="form-control" name="About_Text">
       </div>
 
       <div class="mb-2">
-        <label class="form-label">Address</label>
+        <label class="form-label">Adres</label>
         <input type="text" class="form-control" name="Address">
       </div>
 
       <div class="mb-2">
-        <label class="form-label">Age</label>
+        <label class="form-label">Leeftijd</label>
         <input type="number" class="form-control" name="Age">
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Gender</label>
+        <label class="form-label">Geslacht</label>
         <select name="Gender" class="form-select">
-          <option value="">-- Select Gender --</option>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
+          <option value="">-- Selecteer Geslacht --</option>
+          <option value="Male">Man</option>
+          <option value="Female">Vrouw</option>
+          <option value="Other">Anders</option>
         </select>
       </div>
       <div class="mb-3">
-        <label class="form-label">Profession</label>
+        <label class="form-label">Studie</label>
         <select name="Profession_ID" class="form-select">
-          <option value="">-- Select Profession --</option>
+          <option value="">-- Selecteer Studie --</option>
           @php
           $professions = \App\Models\Profession::all();
           @endphp
@@ -97,21 +98,24 @@
 
       <div class="mb-2">
         <label class="form-label">School</label>
-        <input type="text" class="form-control" name="School_ID">
+        <select name="School_ID" class="form-select">
+          <option value="">-- Selecteer School --</option>
+          @php
+          $schools = \App\Models\School::all();
+          @endphp
+          @foreach($schools as $school)
+          <option value="{{ $school->School_ID }}">{{ $school->School_Name }}</option>
+          @endforeach
+        </select>
       </div>
     </div>
 
     {{-- Company Section --}}
     <div id="companyQuestions" class="mb-3" style="display: none;">
-      <h6 class="mt-3">Company Information</h6>
+      <h6 class="mt-3">Bedrijf Informatie</h6>
 
       <div class="mb-2">
-        <label class="form-label">Company Name</label>
-        <input type="text" class="form-control" name="Company_Name">
-      </div>
-
-      <div class="mb-2">
-        <label class="form-label">Company Address</label>
+        <label class="form-label">Bedrijf Adres</label>
         <input type="text" class="form-control" name="Company_Address">
       </div>
 
@@ -121,13 +125,18 @@
       </div>
 
       <div class="mb-2">
+        <label class="form-label">Website</label>
+        <input type="text" class="form-control" name="Website_Link">
+      </div>
+
+      <div class="mb-2">
         <label class="form-label">Field</label>
         <input type="text" class="form-control" name="field">
       </div>
       <div class="mb-3">
-        <label class="form-label">Profession</label>
+        <label class="form-label">Studie</label>
         <select name="profession_id" class="form-select">
-          <option value="">-- Select Profession --</option>
+          <option value="">-- Selecteer Studie --</option>
           @php
           $professions = \App\Models\Profession::all();
           @endphp

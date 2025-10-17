@@ -13,12 +13,13 @@ return new class extends Migration
             $table->string('Company_Name');
             $table->string('Company_Email')->unique();
             $table->string('Company_Address')->nullable();
+            $table->string('Website_Link')->nullable();
             $table->string('KVK')->nullable();
-            
+
             // Foreign Key
             $table->unsignedBigInteger('Profession_ID')->nullable();
             $table->foreign('Profession_ID')->references('Profession_ID')->on('professions')->onDelete('cascade');
-            
+
             $table->string('field')->nullable();
 
             $table->timestamps();
