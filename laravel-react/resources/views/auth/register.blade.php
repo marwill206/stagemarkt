@@ -32,19 +32,19 @@
       </div>
 
     <div class="mb-3">
-      <label class="form-label">Email address</label>
+      <label class="form-label">Email adres</label>
       <input type="email" class="form-control" name="email" required>
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Password</label>
+      <label class="form-label">Wachtwoord</label>
       <input type="password" class="form-control" name="password" required>
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Register as</label>
+      <label class="form-label">Registreer als</label>
       <select name="role" id="roleSelect" class="form-select" required>
-        <option value="">-- Select Role --</option>
+        <option value="">-- Selecteer rol --</option>
         <option value="student">Student</option>
         <option value="company">Company</option>
       </select>

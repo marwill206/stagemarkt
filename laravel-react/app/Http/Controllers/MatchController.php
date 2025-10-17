@@ -162,7 +162,7 @@ class MatchController extends Controller
         $user = Auth::user() ?? User::first();
 
         if (!$user) {
-            return response()->json(['message' => 'User not found'], 401);
+            return response()->json(['message' => 'User niet gevonden'], 401);
         }
 
         $validated = $request->validate([
@@ -173,7 +173,7 @@ class MatchController extends Controller
         $userId = $user->getProfileId();
 
         if (!$userId) {
-            return response()->json(['message' => 'User profile not properly set up'], 400);
+            return response()->json(['message' => 'Profiel is niet goed opgezet'], 400);
         }
 
         // Check if match already exists
@@ -189,7 +189,7 @@ class MatchController extends Controller
             ->first();
 
         if ($existingMatch) {
-            return response()->json(['message' => 'Match already exists'], 409);
+            return response()->json(['message' => 'Match bestaat al'], 409);
         }
 
         // Create new match
@@ -210,9 +210,9 @@ class MatchController extends Controller
                 ]);
             }
 
-            return response()->json(['message' => 'Match created successfully!'], 201);
+            return response()->json(['message' => 'Match succesvol gemaakt!'], 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to create match: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'het is niet gelukt om de match te maken: ' . $e->getMessage()], 500);
         }
     }
 
@@ -221,7 +221,7 @@ class MatchController extends Controller
         $user = Auth::user() ?? User::first();
 
         if (!$user) {
-            return response()->json(['message' => 'User not found'], 401);
+            return response()->json(['message' => 'User is niet gevonden'], 401);
         }
 
         $validated = $request->validate([
@@ -232,7 +232,7 @@ class MatchController extends Controller
         $userId = $user->getProfileId();
 
         if (!$userId) {
-            return response()->json(['message' => 'User profile not properly set up'], 400);
+            return response()->json(['message' => 'User profiel is niet goed opgezet'], 400);
         }
 
         try {
@@ -248,12 +248,12 @@ class MatchController extends Controller
                 ->delete();
 
             if ($deleted) {
-                return response()->json(['message' => 'Match removed successfully'], 200);
+                return response()->json(['message' => 'Match verwijderd succesvol'], 200);
             }
 
-            return response()->json(['message' => 'Match not found'], 404);
+            return response()->json(['message' => 'Match niet gevonden'], 404);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to remove match: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Gefaald om te matchen: ' . $e->getMessage()], 500);
         }
     }
 }
