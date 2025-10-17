@@ -117,7 +117,7 @@ export default function Match({
                         )
                     );
 
-                    // Add back to discover matches (remove match_date)
+                    
                     if (unmatchedItem) {
                         const { match_date, ...cleanMatch } = unmatchedItem;
                         setCurrentMatches((prev) => [cleanMatch, ...prev]);
