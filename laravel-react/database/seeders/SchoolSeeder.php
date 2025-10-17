@@ -7,22 +7,24 @@ use App\Models\School;
 
 class SchoolSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     */
     public function run(): void
     {
-        // Create specific schools
+        // Static list of schools
         $schools = [
-            'ROC Utrecht',
-            'ROC Amsterdam', 
-            'ROC Rotterdam',
-            'Hogeschool Utrecht',
-            'Universiteit Utrecht',
-            'TU Delft',
-            'Grafisch Lyceum Utrecht',
-            'Media College Amsterdam',
+            ['School_Name' => 'ROC Utrecht'],
+            ['School_Name' => 'ROC Amsterdam'],
+            ['School_Name' => 'ROC Rotterdam'],
+            ['School_Name' => 'Hogeschool Utrecht'],
+            ['School_Name' => 'Universiteit Utrecht'],
+            ['School_Name' => 'TU Delft'],
+            ['School_Name' => 'Grafisch Lyceum Utrecht'],
+            ['School_Name' => 'Media College Amsterdam'],
         ];
 
-        foreach ($schools as $schoolName) {
-            School::create(['School_Name' => $schoolName]);
-        }
+        // Insert schools into the database
+        School::insert($schools);
     }
 }

@@ -12,7 +12,7 @@ class ProfessionFactory extends Factory
     public function definition(): array
     {
         return [
-            'Profession_Name' => $this->faker->jobTitle(), // Generate random job titles
+            'Profession_Name' => $this->faker->jobTitle(), // Ensure $this->faker is used
         ];
     }
 }

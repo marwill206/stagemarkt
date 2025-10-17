@@ -12,7 +12,16 @@ class ProfessionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Generate 10 dummy professions
-        Profession::factory()->count(10)->create();
+        // Static list of professions
+        $professions = [
+            ['Profession_Name' => 'Software Developer'],
+            ['Profession_Name' => 'Graphic Designer'],
+            ['Profession_Name' => 'Data Analyst'],
+            ['Profession_Name' => 'Network Engineer'],
+            ['Profession_Name' => 'Media Manager'],
+        ];
+
+        // Insert professions into the database
+        Profession::insert($professions);
     }
 }
