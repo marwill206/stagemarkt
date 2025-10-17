@@ -22,12 +22,15 @@ RUN npm install && npm run build
 # 7. Copy the rest of the application
 COPY . .
 
-# 8. Generate key and link storage (Render will cache these after first build)
-RUN php artisan key:generate
-RUN php artisan storage:link
+# 8. Set proper permissions
+RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
+RUN chmod -R 775 /app/storage /app/bootstrap/cache
 
-# 9. Expose Render’s port
+# 9. Don't generate key in Dockerfile - use environment variable instead
+# RUN php artisan key:generate  # Remove this line
+
+# 10. Expose Render's port
 EXPOSE 10000
 
-# 10. Start Laravel
-CMD php artisan serve --host 0.0.0.0 --port 10000
+# 11. Start Laravel with proper host binding
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
