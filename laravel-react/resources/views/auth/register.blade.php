@@ -117,24 +117,12 @@
 
       <div class="mb-2">
         <label class="form-label">KVK</label>
-        <input type="text" class="form-control" name="KVK">
+        <input type="number" class="form-control" name="KVK" maxlength="8">
       </div>
 
       <div class="mb-2">
         <label class="form-label">Field</label>
         <input type="text" class="form-control" name="field">
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Profession</label>
-        <select name="profession_id" class="form-select">
-          <option value="">-- Select Profession --</option>
-          @php
-          $professions = \App\Models\Profession::all();
-          @endphp
-          @foreach($professions as $profession)
-          <option value="{{ $profession->Profession_ID }}">{{ $profession->Profession_Name }}</option>
-          @endforeach
-        </select>
       </div>
       <div class="mb-3">
         <label class="form-label">Profession</label>

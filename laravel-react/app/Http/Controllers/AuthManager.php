@@ -43,8 +43,10 @@ class AuthManager extends Controller
             'Gender' => 'nullable|string|max:10',
 
             'Company_Address' => 'nullable|string|min:0',
-            'KVK' => 'nullable|string|min:0',
+            'KVK' => 'nullable|string|digits:8',
             'field' => 'nullable|string|min:0',
+        ], [
+             'KVK.digits' => 'KVK moet 8 nummers zijn'
         ]);
 
         // Create user
@@ -74,25 +76,23 @@ class AuthManager extends Controller
 
             ]);
 
-               $user->update([
+            $user->update([
                 'student_id' => $student->Student_ID,
                 'company_id' => null, // Make sure company_id is null
             ]);
 
             // dd($stdqry);
         } elseif ($user->role === 'company') {
-          $company = Company::create([
+            $company = Company::create([
                 'Company_Name' => $user->name,
                 'Company_Email' => $user->email,
-                'Company_Address'=> $request->Company_Address,
-                'KVK'=> $request->KVK,
-                'field'=> $request->field,
-                'Profession_ID' => null,
+                'Company_Address' => $request->Company_Address,
+                'KVK' => $request->KVK,
+                'field' => $request->field,
                 'Profession_ID' => $request->profession_id,
-                'Company_Address' => $request->company_address
             ]);
 
-              $user->update([
+            $user->update([
                 'company_id' => $company->Company_ID,
                 'student_id' => null, // Make sure student_id is null
             ]);

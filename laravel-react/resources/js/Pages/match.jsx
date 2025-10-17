@@ -162,6 +162,25 @@ export default function Match({
             }
         }
 
+        const handleViewPortfolio = (match) => {
+        const portfolioUrl = match.portfolio || match.Portfolio_Link;
+        
+        if (portfolioUrl) {
+            // Check if URL starts with http:// or https://
+            let fullUrl = portfolioUrl;
+            if (!portfolioUrl.startsWith('http://') && !portfolioUrl.startsWith('https://')) {
+                fullUrl = 'https://' + portfolioUrl;
+            }
+            
+            // Open in new tab
+            window.open(fullUrl, '_blank', 'noopener,noreferrer');
+        } else {
+            alert('No portfolio link available for this student.');
+        }
+    };
+
+       const hasPortfolio = matchType === "student" && (match.portfolio || match.Portfolio_Link);
+
         return (
             <div
                 key={match.id || match.Student_ID || match.Company_ID}
@@ -188,7 +207,7 @@ export default function Match({
                             {match.profession || match.Profession_Name}
                         </p>
                         <p>
-                            <span className="label">Field:</span>{" "}
+                            <span className="label">field:</span>{" "}
                             {match.field || "Various"}
                         </p>
                     </div>
@@ -237,15 +256,20 @@ export default function Match({
 
                                 Like
                             </button>
-                            <button
-                                className="btn-secondary"
-                                onClick={() => handleViewDetails(match)}
-                            >
-                                {matchType === "student" &&
-                                (match.portfolio || match.Portfolio_Link)
-                                    ? "Bekijk Portfolio"
-                                    : "Bekijk Details"}
-                            </button>
+                          {hasPortfolio && (
+                            <p className="btn-secondary">
+                                <a 
+                                    href="#" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleViewPortfolio(match);
+                                    }}
+                                    
+                                >
+                                    View Portfolio
+                                </a>
+                            </p>
+                        )}
                         </>
                     ) : (
                         <>
@@ -255,15 +279,22 @@ export default function Match({
                             >
                                 Contact
                             </button>
-                            <button
-                                className="btn-secondary"
-                                onClick={() => handleViewDetails(match)}
-                            >
-                                {matchType === "student" &&
-                                (match.portfolio || match.Portfolio_Link)
-                                    ? "View Portfolio"
-                                    : "View Details"}
-                            </button>
+                        
+                           {hasPortfolio && (
+                            <p className="btn-secondary">
+                                <a 
+                                    href="#" 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleViewPortfolio(match);
+                                    }}
+                                    
+                                >
+                                    View Portfolio
+                                </a>
+                            </p>
+                        )}
+                        
                             <button
                                 className="btn-unlike"
                                 onClick={() =>
