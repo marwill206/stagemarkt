@@ -12,22 +12,21 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # 4. Set working directory
 WORKDIR /app
 
-# 5. Copy composer and npm files first (for better caching)
-COPY composer.json composer.lock package.json package-lock.json* ./
-
-# 6. Install PHP and Node dependencies
-RUN composer install --optimize-autoloader --no-dev
-RUN npm install && npm run build
-
-# 7. Copy the rest of the application
+# 5. Copy ALL application files first (artisan needs to be present)
 COPY . .
 
-# 8. Set proper permissions
+# 6. Install PHP dependencies (without dev dependencies and skip scripts initially)
+RUN composer install --optimize-autoloader --no-dev --no-scripts
+
+# 7. Run the Composer scripts manually (now that artisan exists)
+RUN composer run-script post-autoload-dump
+
+# 8. Install Node dependencies and build assets
+RUN npm install && npm run build
+
+# 9. Set proper permissions
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 RUN chmod -R 775 /app/storage /app/bootstrap/cache
-
-# 9. Don't generate key in Dockerfile - use environment variable instead
-# RUN php artisan key:generate  # Remove this line
 
 # 10. Expose Render's port
 EXPOSE 10000
