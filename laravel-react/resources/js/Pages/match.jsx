@@ -99,9 +99,30 @@ export default function Match({
                 });
 
                 if (response.ok) {
-                    setCurrentExistingMatches((prev) =>
-                        prev.filter((match) => match.id !== targetId)
+                    // Find the unmatched item in existing matches
+                    const unmatchedItem = currentExistingMatches.find(
+                        (match) =>
+                            match.id === targetId ||
+                            match.Student_ID === targetId ||
+                            match.Company_ID === targetId
                     );
+
+                    // Remove from existing matches
+                    setCurrentExistingMatches((prev) =>
+                        prev.filter(
+                            (match) =>
+                                match.id !== targetId &&
+                                match.Student_ID !== targetId &&
+                                match.Company_ID !== targetId
+                        )
+                    );
+
+                    // Add back to discover matches (remove match_date)
+                    if (unmatchedItem) {
+                        const { match_date, ...cleanMatch } = unmatchedItem;
+                        setCurrentMatches((prev) => [cleanMatch, ...prev]);
+                    }
+
                     alert("Match removed successfully");
                 } else {
                     alert("Failed to remove match");
