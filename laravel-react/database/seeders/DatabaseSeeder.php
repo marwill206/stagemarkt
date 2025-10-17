@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProfessionSeeder::class,
             SchoolSeeder::class,
-            StudentCompanySeeder::class,
+            //StudentCompanySeeder::class,
         ]);
 
         User::factory()->create([
