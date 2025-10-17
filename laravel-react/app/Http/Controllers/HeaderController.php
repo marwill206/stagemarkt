@@ -25,27 +25,15 @@ class HeaderController extends Controller
 
         if (!$user) {
             // For demo purposes, create a demo user if none exists
-            $user = User::with(['student.profession', 'student.school', 'company.profession'])->first();
-
-            if (!$user) {
-                // Create a demo user linked to first student
-                $firstStudent = Student::first();
-                if ($firstStudent) {
-                    $user = User::create([
-                        'name' => $firstStudent->Student_Name,
-                        'email' => $firstStudent->Student_Email,
-                        'password' => bcrypt('password'),
-                        'user_type' => 'student',
-                        'role' => 'student',
-                        'student_id' => $firstStudent->Student_ID,
-                        'company_id' => null,
-                    ]);
-                }
-            }
+           return redirect()->route('login')->with('error', 'lOG in');
         }
 
         $userType = $user ? $user->getUserType() : 'student';
         $userId = $user ? $user->getProfileId() : null;
+
+        if (!$userId) {
+            return redirect()->route('login')->with('error', 'Your profile is not properly set up. Please contact support.');
+        }
 
         $matches = collect();
         $existingMatches = collect();

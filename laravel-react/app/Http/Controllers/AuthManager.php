@@ -49,6 +49,7 @@ class AuthManager extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'user_type' => $request->role,
         ]);
 
         if (!$user) {
@@ -56,27 +57,36 @@ class AuthManager extends Controller
         }
         // Create role-specific record
         if ($user->role === 'student') {
-            $stdqry = Student::create([
-                'User_ID' => $user->id,
+            $student = Student::create([
                 'Student_Name' => $user->name,
                 'Student_Email' => $user->email,
-                'profession_ID' => null,
                 'Portfolio_Link' => $request->Portfolio_Link,
                 'About_Text' => $request->About_Text,
                 'Address' => $request->Address,
                 'Age' => $request->Age,
                 'Gender' => $request->Gender,
+                'Profession_ID' => $request->Profession_ID,
 
 
             ]);
 
+               $user->update([
+                'student_id' => $student->Student_ID,
+                'company_id' => null, // Make sure company_id is null
+            ]);
+
             // dd($stdqry);
         } elseif ($user->role === 'company') {
-            Company::create([
-                'User_ID' => $user->id,
+          $company = Company::create([
                 'Company_Name' => $user->name,
                 'Company_Email' => $user->email,
-                'Profession_ID' => null,
+                'Profession_ID' => $request->profession_id,
+                'Company_Address' => $request->company_address
+            ]);
+
+              $user->update([
+                'company_id' => $company->Company_ID,
+                'student_id' => null, // Make sure student_id is null
             ]);
         }
 

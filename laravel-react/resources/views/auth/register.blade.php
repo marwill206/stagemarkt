@@ -4,19 +4,19 @@
 <div class="container">
   <div class="mt-5">
     @if($errors->any())
-      <div class="col-12">
-        @foreach ($errors->all() as $error)
-          <div class="alert alert-danger">{{ $error }}</div>
-        @endforeach
-      </div>
+    <div class="col-12">
+      @foreach ($errors->all() as $error)
+      <div class="alert alert-danger">{{ $error }}</div>
+      @endforeach
+    </div>
     @endif
 
     @if (session()->has('error'))
-      <div class="alert alert-danger">{{ session('error') }}</div>
+    <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
     @if (session()->has('success'))
-      <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success">{{ session('success') }}</div>
     @endif
   </div>
 
@@ -63,25 +63,33 @@
         <input type="text" class="form-control" name="Address">
       </div>
 
-       <div class="mb-2">
+      <div class="mb-2">
         <label class="form-label">Age</label>
         <input type="text" class="form-control" name="Age">
       </div>
 
-       <div class="mb-3">
-      <label class="form-label">Gender</label>
-      <select name="Gender" class="form-select" required>
-        <option value="">-- Select Gender --</option>
-        <option>Male</option>
-        <option>Female</option>
-        <option>Other</option>
-      </select>
-    </div>
-       <div class="mb-2">
-        <label class="form-label">Profession</label>
-        <input type="text" class="form-control" name="Profession_ID">
+      <div class="mb-3">
+        <label class="form-label">Gender</label>
+        <select name="Gender" class="form-select">
+          <option value="">-- Select Gender --</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
       </div>
-       <div class="mb-2">
+      <div class="mb-3">
+        <label class="form-label">Profession</label>
+        <select name="Profession_ID" class="form-select">
+          <option value="">-- Select Profession --</option>
+          @php
+          $professions = \App\Models\Profession::all();
+          @endphp
+          @foreach($professions as $profession)
+          <option value="{{ $profession->Profession_ID }}">{{ $profession->Profession_Name }}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="mb-2">
         <label class="form-label">School</label>
         <input type="text" class="form-control" name="School_ID">
       </div>
@@ -102,9 +110,23 @@
         <label class="form-label">Contact Person</label>
         <input type="text" class="form-control" name="contact_person">
       </div>
+      <div class="mb-3">
+        <label class="form-label">Profession</label>
+        <select name="profession_id" class="form-select">
+          <option value="">-- Select Profession --</option>
+          @php
+          $professions = \App\Models\Profession::all();
+          @endphp
+          @foreach($professions as $profession)
+          <option value="{{ $profession->Profession_ID }}">{{ $profession->Profession_Name }}</option>
+          @endforeach
+        </select>
+      </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Register</button>
+    <button type="submit" class="btn btn-primary">aanmelden</button>
+
+    <a href="{{ route('login') }}" class="btn btn-primary">Heb al een account</a>
   </form>
 </div>
 
