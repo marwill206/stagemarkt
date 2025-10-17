@@ -2,6 +2,7 @@ services:
   - type: web
     name: stagemarkt
     env: php
+    region: frankfurt
     buildCommand: |
       composer install --no-dev --optimize-autoloader
       npm install
@@ -11,7 +12,7 @@ services:
       php artisan view:cache
     startCommand: |
       php artisan migrate --force
-      php artisan serve --host=0.0.0.0 --port=$PORT
+      vendor/bin/heroku-php-apache2 public/
     envVars:
       - key: APP_ENV
         value: production
@@ -43,6 +44,14 @@ services:
         fromDatabase:
           name: stagemarkt-db
           property: password
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
 
 databases:
   - name: stagemarkt-db

@@ -1,0 +1,33 @@
+# 1. Base image with PHP 8.2 and required extensions
+FROM php:8.2-cli
+
+# 2. Install system dependencies, Node, npm, and Composer
+RUN apt-get update && apt-get install -y \
+    git unzip curl libpq-dev libzip-dev zip nodejs npm \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip
+
+# 3. Install Composer globally
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# 4. Set working directory
+WORKDIR /app
+
+# 5. Copy composer and npm files first (for better caching)
+COPY composer.json composer.lock package.json package-lock.json* ./
+
+# 6. Install PHP and Node dependencies
+RUN composer install --optimize-autoloader --no-dev
+RUN npm install && npm run build
+
+# 7. Copy the rest of the application
+COPY . .
+
+# 8. Generate key and link storage (Render will cache these after first build)
+RUN php artisan key:generate
+RUN php artisan storage:link
+
+# 9. Expose Render’s port
+EXPOSE 10000
+
+# 10. Start Laravel
+CMD php artisan serve --host 0.0.0.0 --port 10000
